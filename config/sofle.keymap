@@ -14,6 +14,17 @@
         compatible = "zmk,keymap";
 
         // ------------------------------------------------------------
+        // CUSTOM BEHAVIORS
+        // ------------------------------------------------------------
+        behaviors {
+            cs_v: ctrl_shift_v {
+                compatible = "zmk,behavior-macro";
+                #binding-cells = <0>;
+                bindings = <&kp LCTRL &kp LSHFT &kp V>;
+            };
+        };
+
+        // ------------------------------------------------------------
         // BASE LAYER
         // ------------------------------------------------------------
         default_layer {
@@ -59,8 +70,8 @@
                 // Row 3 (A S D = arrows)
                 &trans &kp LEFT &kp DOWN &kp RIGHT &trans &trans     &trans &trans &trans &trans &trans &trans
 
-                // Row 4 (/ position = \, V position = GUI+SHIFT+V)
-                &trans &trans &trans &trans &kp LC(LS(V)) &trans     &trans &trans &trans &trans &kp BSLH &trans
+                // Row 4 (/ position = \, V = Ctrl+Shift+V)
+                &trans &trans &trans &trans &cs_v &trans            &trans &trans &trans &trans &kp BSLH &trans
 
                 // Thumb cluster (transparent)
                 &trans &trans &trans &trans &trans                  &trans &trans &trans &trans &trans
