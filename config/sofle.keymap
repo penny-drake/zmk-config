@@ -38,10 +38,11 @@
                 &kp LCTRL &kp LALT &kp LGUI &mo RAISE &kp RET       &kp SPACE &mo RAISE &kp MINUS &kp LBKT &kp RBKT
             >;
 
-            sensor-bindings = <
-                &inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN
-                &inc_dec_kp C_SCROLL_UP C_SCROLL_DOWN
-            >;
+sensor-bindings = <
+    &inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN
+    &inc_dec_kp C_SCROLL_UP C_SCROLL_DOWN
+    &trans
+>;
         };
 
         // ------------------------------------------------------------
@@ -76,10 +77,11 @@
                 &trans &trans &trans &trans &trans                  &trans &trans &trans &trans &trans
             >;
 
-            sensor-bindings = <
-                &inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN
-                &inc_dec_kp C_SCROLL_UP C_SCROLL_DOWN
-            >;
+sensor-bindings = <
+    &inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN
+    &inc_dec_kp C_SCROLL_UP C_SCROLL_DOWN
+    &trans
+>;
         };
     };
 };
