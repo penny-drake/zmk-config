@@ -9,8 +9,8 @@ manifest:
       remote: zmkfirmware
       revision: v0.3
       import: app/west.yml
-    - name: nv-gem
-      url: https://github.com/MechboardsLTD/zmk-module
-      revision: nv_gem
+    - name: nice-view-gem
+      url: https://github.com/M165437/nice-view-gem
+      revision: v0.3.0
   self:
     path: config
