@@ -9,20 +9,23 @@
 #include <dt-bindings/zmk/rgb.h>
 #include <dt-bindings/zmk/ext_power.h>
 
+#define BASE 0
+#define RAISE 1
+
 / {
+    behaviors {
+        cs_v: ctrl_shift_v {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings =
+                <&macro_press &kp LCTRL &kp LSHFT>,
+                <&macro_tap &kp V>,
+                <&macro_release &kp LSHFT &kp LCTRL>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
-
-        // ------------------------------------------------------------
-        // CUSTOM BEHAVIORS
-        // ------------------------------------------------------------
-        behaviors {
-            cs_v: ctrl_shift_v {
-                compatible = "zmk,behavior-macro";
-                #binding-cells = <0>;
-                bindings = <&kp LCTRL &kp LSHFT &kp V>;
-            };
-        };
 
         // ------------------------------------------------------------
         // BASE LAYER
@@ -38,11 +41,10 @@
                 &kp LCTRL &kp LALT &kp LGUI &mo RAISE &kp RET       &kp SPACE &mo RAISE &kp MINUS &kp LBKT &kp RBKT
             >;
 
-sensor-bindings = <
-    &inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN
-    &inc_dec_kp C_SCROLL_UP C_SCROLL_DOWN
-    &trans
->;
+            sensor-bindings = <
+                &inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN
+                &inc_dec_kp C_SCROLL_UP C_SCROLL_DOWN
+            >;
         };
 
         // ------------------------------------------------------------
@@ -51,37 +53,18 @@ sensor-bindings = <
         raise_layer {
             display-name = "raise";
 
-            // Rules:
-            // W = UP
-            // A S D = LEFT DOWN RIGHT
-            // E = =
-            // V = GUI + SHIFT + V
-            // ESC (in raise) = `
-            // / (in raise) = \
-            // everything else transparent
-
             bindings = <
-                // Row 1 (F-row + ESC = `)
                 &kp GRAVE &kp F1 &kp F2 &kp F3 &kp F4 &kp F5        &kp F6 &kp F7 &kp F8 &kp F9 &kp F10 &kp F11
-
-                // Row 2 (W = UP, E = =)
-                &trans &trans &kp UP &kp EQUAL &trans &trans        &trans &trans &trans &trans &trans &kp F12
-
-                // Row 3 (A S D = arrows)
-                &trans &kp LEFT &kp DOWN &kp RIGHT &trans &trans     &trans &trans &trans &trans &trans &trans
-
-                // Row 4 (/ position = \, V = Ctrl+Shift+V)
-                &trans &trans &trans &trans &cs_v &trans            &trans &trans &trans &trans &kp BSLH &trans
-
-                // Thumb cluster (transparent)
-                &trans &trans &trans &trans &trans                  &trans &trans &trans &trans &trans
+                &trans &trans &kp UP &kp EQUAL &trans &trans           &trans &trans &trans &trans &trans &kp F12
+                &trans &kp LEFT &kp DOWN &kp RIGHT &trans &trans      &trans &trans &trans &trans &trans &trans
+                &trans &trans &trans &trans &cs_v &trans               &trans &trans &trans &trans &kp BSLH &trans
+                &trans &trans &trans &trans &trans                     &trans &trans &trans &trans &trans
             >;
 
-sensor-bindings = <
-    &inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN
-    &inc_dec_kp C_SCROLL_UP C_SCROLL_DOWN
-    &trans
->;
+            sensor-bindings = <
+                &inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN
+                &inc_dec_kp C_SCROLL_UP C_SCROLL_DOWN
+            >;
         };
     };
 };
