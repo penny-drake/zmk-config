@@ -1,0 +1,1451 @@
+2026-04-11T07:02:04.3067207Z Current runner version: '2.333.1'
+2026-04-11T07:02:04.3091012Z ##[group]Runner Image Provisioner
+2026-04-11T07:02:04.3092102Z Hosted Compute Agent
+2026-04-11T07:02:04.3092641Z Version: 20260213.493
+2026-04-11T07:02:04.3093331Z Commit: 5c115507f6dd24b8de37d8bbe0bb4509d0cc0fa3
+2026-04-11T07:02:04.3094017Z Build Date: 2026-02-13T00:28:41Z
+2026-04-11T07:02:04.3094667Z Worker ID: {333f786d-be43-44e9-b6cf-210bded705c3}
+2026-04-11T07:02:04.3095375Z Azure Region: westus
+2026-04-11T07:02:04.3095904Z ##[endgroup]
+2026-04-11T07:02:04.3097325Z ##[group]Operating System
+2026-04-11T07:02:04.3098003Z Ubuntu
+2026-04-11T07:02:04.3098487Z 24.04.4
+2026-04-11T07:02:04.3098907Z LTS
+2026-04-11T07:02:04.3099405Z ##[endgroup]
+2026-04-11T07:02:04.3099864Z ##[group]Runner Image
+2026-04-11T07:02:04.3100445Z Image: ubuntu-24.04
+2026-04-11T07:02:04.3100951Z Version: 20260406.80.1
+2026-04-11T07:02:04.3102352Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260406.80/images/ubuntu/Ubuntu2404-Readme.md
+2026-04-11T07:02:04.3104161Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260406.80
+2026-04-11T07:02:04.3105094Z ##[endgroup]
+2026-04-11T07:02:04.3107663Z ##[group]GITHUB_TOKEN Permissions
+2026-04-11T07:02:04.3109901Z Actions: write
+2026-04-11T07:02:04.3110431Z ArtifactMetadata: write
+2026-04-11T07:02:04.3111056Z Attestations: write
+2026-04-11T07:02:04.3111795Z Checks: write
+2026-04-11T07:02:04.3112330Z Contents: write
+2026-04-11T07:02:04.3112791Z Deployments: write
+2026-04-11T07:02:04.3113387Z Discussions: write
+2026-04-11T07:02:04.3113891Z Issues: write
+2026-04-11T07:02:04.3114331Z Metadata: read
+2026-04-11T07:02:04.3114917Z Models: read
+2026-04-11T07:02:04.3115375Z Packages: write
+2026-04-11T07:02:04.3115857Z Pages: write
+2026-04-11T07:02:04.3116468Z PullRequests: write
+2026-04-11T07:02:04.3117022Z RepositoryProjects: write
+2026-04-11T07:02:04.3117575Z SecurityEvents: write
+2026-04-11T07:02:04.3118175Z Statuses: write
+2026-04-11T07:02:04.3118756Z ##[endgroup]
+2026-04-11T07:02:04.3120710Z Secret source: Actions
+2026-04-11T07:02:04.3121877Z Prepare workflow directory
+2026-04-11T07:02:04.3536126Z Prepare all required actions
+2026-04-11T07:02:04.3574571Z Getting action download info
+2026-04-11T07:02:04.8286410Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-04-11T07:02:04.9679940Z Download action repository 'actions/cache@v4' (SHA:0057852bfaa89a56745cba8c7296529d2fc39830)
+2026-04-11T07:02:05.0603832Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-04-11T07:02:05.2662753Z Uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@refs/tags/v0.3 (3cf9006a9377f21c99e944e29e2a507d8c3e9069)
+2026-04-11T07:02:05.2667301Z ##[group] Inputs
+2026-04-11T07:02:05.2667784Z   build_matrix_path: build.yaml
+2026-04-11T07:02:05.2668262Z   config_path: config
+2026-04-11T07:02:05.2668684Z   fallback_binary: bin
+2026-04-11T07:02:05.2669116Z   archive_name: firmware
+2026-04-11T07:02:05.2669556Z ##[endgroup]
+2026-04-11T07:02:05.2670273Z Complete job name: build / Build (nice_nano_v2, sofle_left, studio-rpc-usb-uart, -DCONFIG_ZMK_STUDIO=y)
+2026-04-11T07:02:05.3159272Z ##[group]Checking docker version
+2026-04-11T07:02:05.3172321Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+2026-04-11T07:02:05.3525271Z '1.48'
+2026-04-11T07:02:05.3540755Z Docker daemon API version: '1.48'
+2026-04-11T07:02:05.3541765Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+2026-04-11T07:02:05.3694139Z '1.48'
+2026-04-11T07:02:05.3706101Z Docker client API version: '1.48'
+2026-04-11T07:02:05.3710630Z ##[endgroup]
+2026-04-11T07:02:05.3714287Z ##[group]Clean up resources from previous jobs
+2026-04-11T07:02:05.3719486Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=fa9698"
+2026-04-11T07:02:05.3848946Z ##[command]/usr/bin/docker network prune --force --filter "label=fa9698"
+2026-04-11T07:02:05.3966793Z ##[endgroup]
+2026-04-11T07:02:05.3967267Z ##[group]Create local container network
+2026-04-11T07:02:05.3977818Z ##[command]/usr/bin/docker network create --label fa9698 github_network_08a040e4fcfc4beebc0cadc01fbc22cc
+2026-04-11T07:02:05.4488703Z 8baec89c65f56b4352a16dbc983d472dfe8d197ec525f76c9b82495469c2c6b4
+2026-04-11T07:02:05.4507545Z ##[endgroup]
+2026-04-11T07:02:05.4530666Z ##[group]Starting job container
+2026-04-11T07:02:05.4552797Z ##[command]/usr/bin/docker pull zmkfirmware/zmk-build-arm:stable
+2026-04-11T07:02:06.3324898Z stable: Pulling from zmkfirmware/zmk-build-arm
+2026-04-11T07:02:06.5845747Z a1a21c96bc16: Pulling fs layer
+2026-04-11T07:02:06.5847085Z 80b3f0d914b4: Pulling fs layer
+2026-04-11T07:02:06.5847940Z 39f6267735b8: Pulling fs layer
+2026-04-11T07:02:06.9474528Z a1a21c96bc16: Verifying Checksum
+2026-04-11T07:02:06.9475366Z a1a21c96bc16: Download complete
+2026-04-11T07:02:08.0796574Z 80b3f0d914b4: Verifying Checksum
+2026-04-11T07:02:08.0797340Z 80b3f0d914b4: Download complete
+2026-04-11T07:02:08.3432534Z 39f6267735b8: Verifying Checksum
+2026-04-11T07:02:08.3434194Z 39f6267735b8: Download complete
+2026-04-11T07:02:08.4573200Z a1a21c96bc16: Pull complete
+2026-04-11T07:02:17.4413968Z 80b3f0d914b4: Pull complete
+2026-04-11T07:02:27.4834354Z 39f6267735b8: Pull complete
+2026-04-11T07:02:27.4886022Z Digest: sha256:edb1c953438c6f720ddb79c3762f3972013b7fbbaf4fff3592fc869983e7afc5
+2026-04-11T07:02:27.4905835Z Status: Downloaded newer image for zmkfirmware/zmk-build-arm:stable
+2026-04-11T07:02:27.4945958Z docker.io/zmkfirmware/zmk-build-arm:stable
+2026-04-11T07:02:27.5013204Z ##[command]/usr/bin/docker create --name 2676f8f3f51f461fb92ecdf467f63765_zmkfirmwarezmkbuildarmstable_84aa8d --label fa9698 --workdir /__w/zmk-config/zmk-config --network github_network_08a040e4fcfc4beebc0cadc01fbc22cc  -e "HOME=/github/home" -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work":"/__w" -v "/home/runner/actions-runner/cached/externals":"/__e":ro -v "/home/runner/work/_temp":"/__w/_temp" -v "/home/runner/work/_actions":"/__w/_actions" -v "/opt/hostedtoolcache":"/__t" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" --entrypoint "tail" zmkfirmware/zmk-build-arm:stable "-f" "/dev/null"
+2026-04-11T07:02:27.5291716Z 6ca2667d08769352fcfa00ec4e8dd1b3561d63122be954315ac198518f758168
+2026-04-11T07:02:27.5311738Z ##[command]/usr/bin/docker start 6ca2667d08769352fcfa00ec4e8dd1b3561d63122be954315ac198518f758168
+2026-04-11T07:02:27.6844100Z 6ca2667d08769352fcfa00ec4e8dd1b3561d63122be954315ac198518f758168
+2026-04-11T07:02:27.6860753Z ##[command]/usr/bin/docker ps --all --filter id=6ca2667d08769352fcfa00ec4e8dd1b3561d63122be954315ac198518f758168 --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+2026-04-11T07:02:27.6972329Z 6ca2667d08769352fcfa00ec4e8dd1b3561d63122be954315ac198518f758168 Up Less than a second
+2026-04-11T07:02:27.6989840Z ##[command]/usr/bin/docker inspect --format "{{range .Config.Env}}{{println .}}{{end}}" 6ca2667d08769352fcfa00ec4e8dd1b3561d63122be954315ac198518f758168
+2026-04-11T07:02:27.7098469Z HOME=/github/home
+2026-04-11T07:02:27.7099378Z GITHUB_ACTIONS=true
+2026-04-11T07:02:27.7100692Z CI=true
+2026-04-11T07:02:27.7101594Z PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+2026-04-11T07:02:27.7102314Z DEBIAN_FRONTEND=noninteractive
+2026-04-11T07:02:27.7103010Z ZEPHYR_VERSION=4.1.0
+2026-04-11T07:02:27.7116470Z ##[endgroup]
+2026-04-11T07:02:27.7125926Z ##[group]Waiting for all services to be ready
+2026-04-11T07:02:27.7127688Z ##[endgroup]
+2026-04-11T07:02:27.7397667Z ##[group]Run actions/checkout@v4
+2026-04-11T07:02:27.7398281Z with:
+2026-04-11T07:02:27.7398530Z   repository: penny-drake/zmk-config
+2026-04-11T07:02:27.7398992Z   token: ***
+2026-04-11T07:02:27.7399210Z   ssh-strict: true
+2026-04-11T07:02:27.7399430Z   ssh-user: git
+2026-04-11T07:02:27.7399652Z   persist-credentials: true
+2026-04-11T07:02:27.7399916Z   clean: true
+2026-04-11T07:02:27.7400147Z   sparse-checkout-cone-mode: true
+2026-04-11T07:02:27.7400410Z   fetch-depth: 1
+2026-04-11T07:02:27.7400854Z   fetch-tags: false
+2026-04-11T07:02:27.7401074Z   show-progress: true
+2026-04-11T07:02:27.7401297Z   lfs: false
+2026-04-11T07:02:27.7401724Z   submodules: false
+2026-04-11T07:02:27.7401960Z   set-safe-directory: true
+2026-04-11T07:02:27.7402516Z ##[endgroup]
+2026-04-11T07:02:27.7461621Z ##[command]/usr/bin/docker exec  6ca2667d08769352fcfa00ec4e8dd1b3561d63122be954315ac198518f758168 sh -c "cat /etc/*release | grep ^ID"
+2026-04-11T07:02:27.9635146Z Syncing repository: penny-drake/zmk-config
+2026-04-11T07:02:27.9637100Z ##[group]Getting Git version info
+2026-04-11T07:02:27.9637949Z Working directory is '/__w/zmk-config/zmk-config'
+2026-04-11T07:02:27.9638831Z [command]/usr/bin/git version
+2026-04-11T07:02:27.9639107Z git version 2.43.0
+2026-04-11T07:02:27.9640021Z ##[endgroup]
+2026-04-11T07:02:27.9644238Z Temporarily overriding HOME='/__w/_temp/f53d8fb2-42ae-44e6-9f0f-49591b660042' before making global git config changes
+2026-04-11T07:02:27.9645610Z Adding repository directory to the temporary git global config as a safe directory
+2026-04-11T07:02:27.9646509Z [command]/usr/bin/git config --global --add safe.directory /__w/zmk-config/zmk-config
+2026-04-11T07:02:27.9647434Z Deleting the contents of '/__w/zmk-config/zmk-config'
+2026-04-11T07:02:27.9647995Z ##[group]Initializing the repository
+2026-04-11T07:02:27.9648372Z [command]/usr/bin/git init /__w/zmk-config/zmk-config
+2026-04-11T07:02:27.9664062Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-04-11T07:02:27.9665093Z hint: is subject to change. To configure the initial branch name to use in all
+2026-04-11T07:02:27.9665869Z hint: of your new repositories, which will suppress this warning, call:
+2026-04-11T07:02:27.9666355Z hint: 
+2026-04-11T07:02:27.9666681Z hint: 	git config --global init.defaultBranch <name>
+2026-04-11T07:02:27.9667016Z hint: 
+2026-04-11T07:02:27.9667338Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-04-11T07:02:27.9667863Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-04-11T07:02:27.9668379Z hint: 
+2026-04-11T07:02:27.9668617Z hint: 	git branch -m <name>
+2026-04-11T07:02:27.9671622Z Initialized empty Git repository in /__w/zmk-config/zmk-config/.git/
+2026-04-11T07:02:27.9683488Z [command]/usr/bin/git remote add origin https://github.com/penny-drake/zmk-config
+2026-04-11T07:02:27.9710691Z ##[endgroup]
+2026-04-11T07:02:27.9711637Z ##[group]Disabling automatic garbage collection
+2026-04-11T07:02:27.9715983Z [command]/usr/bin/git config --local gc.auto 0
+2026-04-11T07:02:27.9742555Z ##[endgroup]
+2026-04-11T07:02:27.9743229Z ##[group]Setting up auth
+2026-04-11T07:02:27.9749221Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-04-11T07:02:27.9776052Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-04-11T07:02:27.9989867Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-04-11T07:02:28.0017113Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-04-11T07:02:28.0225938Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-04-11T07:02:28.0253495Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-04-11T07:02:28.0465044Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-04-11T07:02:28.0497735Z ##[endgroup]
+2026-04-11T07:02:28.0498616Z ##[group]Fetching the repository
+2026-04-11T07:02:28.0506603Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +47ba4a2d6efde410f66fae0d41571ef02de8cd28:refs/remotes/origin/main
+2026-04-11T07:02:28.4186488Z From https://github.com/penny-drake/zmk-config
+2026-04-11T07:02:28.4187615Z  * [new ref]         47ba4a2d6efde410f66fae0d41571ef02de8cd28 -> origin/main
+2026-04-11T07:02:28.4218867Z ##[endgroup]
+2026-04-11T07:02:28.4219394Z ##[group]Determining the checkout info
+2026-04-11T07:02:28.4223610Z ##[endgroup]
+2026-04-11T07:02:28.4230851Z [command]/usr/bin/git sparse-checkout disable
+2026-04-11T07:02:28.4297819Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-04-11T07:02:28.4329359Z ##[group]Checking out the ref
+2026-04-11T07:02:28.4332984Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-04-11T07:02:28.4377310Z Switched to a new branch 'main'
+2026-04-11T07:02:28.4377780Z branch 'main' set up to track 'origin/main'.
+2026-04-11T07:02:28.4383281Z ##[endgroup]
+2026-04-11T07:02:28.4415079Z [command]/usr/bin/git log -1 --format=%H
+2026-04-11T07:02:28.4437826Z 47ba4a2d6efde410f66fae0d41571ef02de8cd28
+2026-04-11T07:02:28.4635486Z ##[group]Run echo "build_dir=$(mktemp -d)" >> $GITHUB_ENV
+2026-04-11T07:02:28.4635974Z [36;1mecho "build_dir=$(mktemp -d)" >> $GITHUB_ENV[0m
+2026-04-11T07:02:28.4639017Z shell: sh -e {0}
+2026-04-11T07:02:28.4639240Z ##[endgroup]
+2026-04-11T07:02:28.5260098Z ##[group]Run if [ -e zephyr/module.yml ]; then
+2026-04-11T07:02:28.5260492Z [36;1mif [ -e zephyr/module.yml ]; then[0m
+2026-04-11T07:02:28.5260881Z [36;1m  export zmk_load_arg=" -DZMK_EXTRA_MODULES='${GITHUB_WORKSPACE}'"[0m
+2026-04-11T07:02:28.5261290Z [36;1m  new_tmp_dir="${TMPDIR:-/tmp}/zmk-config"[0m
+2026-04-11T07:02:28.5261920Z [36;1m  mkdir -p "${new_tmp_dir}"[0m
+2026-04-11T07:02:28.5262210Z [36;1m  echo "base_dir=${new_tmp_dir}" >> $GITHUB_ENV[0m
+2026-04-11T07:02:28.5262485Z [36;1melse[0m
+2026-04-11T07:02:28.5262713Z [36;1m  echo "base_dir=${GITHUB_WORKSPACE}" >> $GITHUB_ENV[0m
+2026-04-11T07:02:28.5262995Z [36;1mfi[0m
+2026-04-11T07:02:28.5263149Z [36;1m[0m
+2026-04-11T07:02:28.5263320Z [36;1mif [ -n "${snippet}" ]; then[0m
+2026-04-11T07:02:28.5263627Z [36;1m  extra_west_args="-S \"${snippet}\""[0m
+2026-04-11T07:02:28.5263905Z [36;1mfi[0m
+2026-04-11T07:02:28.5264052Z [36;1m[0m
+2026-04-11T07:02:28.5264318Z [36;1mecho "zephyr_version=${ZEPHYR_VERSION}" >> $GITHUB_ENV[0m
+2026-04-11T07:02:28.5264690Z [36;1mecho "extra_west_args=${extra_west_args}" >> $GITHUB_ENV[0m
+2026-04-11T07:02:28.5265154Z [36;1mecho "extra_cmake_args=${shield:+-DSHIELD=\"$shield\"}${zmk_load_arg}" >> $GITHUB_ENV[0m
+2026-04-11T07:02:28.5265661Z [36;1mecho "display_name=${shield:+$shield - }${board}" >> $GITHUB_ENV[0m
+2026-04-11T07:02:28.5266149Z [36;1mecho "artifact_name=${artifact_name:-${shield:+$shield-}${board}-zmk}" >> $GITHUB_ENV[0m
+2026-04-11T07:02:28.5268095Z shell: sh -x {0}
+2026-04-11T07:02:28.5268301Z env:
+2026-04-11T07:02:28.5268487Z   build_dir: /tmp/tmp.6CXAMbBPmE
+2026-04-11T07:02:28.5268716Z   board: nice_nano_v2
+2026-04-11T07:02:28.5268907Z   shield: sofle_left
+2026-04-11T07:02:28.5269087Z   artifact_name: 
+2026-04-11T07:02:28.5269297Z   snippet: studio-rpc-usb-uart
+2026-04-11T07:02:28.5269517Z ##[endgroup]
+2026-04-11T07:02:28.5794781Z + [ -e zephyr/module.yml ]
+2026-04-11T07:02:28.5795276Z + export zmk_load_arg= -DZMK_EXTRA_MODULES='/__w/zmk-config/zmk-config'
+2026-04-11T07:02:28.5795696Z + new_tmp_dir=/tmp/zmk-config
+2026-04-11T07:02:28.5795948Z + mkdir -p /tmp/zmk-config
+2026-04-11T07:02:28.5799986Z + echo base_dir=/tmp/zmk-config
+2026-04-11T07:02:28.5800557Z + [ -n studio-rpc-usb-uart ]
+2026-04-11T07:02:28.5801017Z + extra_west_args=-S "studio-rpc-usb-uart"
+2026-04-11T07:02:28.5802007Z + echo zephyr_version=4.1.0
+2026-04-11T07:02:28.5802295Z + echo extra_west_args=-S "studio-rpc-usb-uart"
+2026-04-11T07:02:28.5802776Z + echo extra_cmake_args=-DSHIELD="sofle_left" -DZMK_EXTRA_MODULES='/__w/zmk-config/zmk-config'
+2026-04-11T07:02:28.5803358Z + echo display_name=sofle_left - nice_nano_v2
+2026-04-11T07:02:28.5803661Z + echo artifact_name=sofle_left-nice_nano_v2-zmk
+2026-04-11T07:02:28.5891312Z ##[group]Run if [ "/tmp/zmk-config" != "${GITHUB_WORKSPACE}" ]; then
+2026-04-11T07:02:28.5892287Z [36;1mif [ "/tmp/zmk-config" != "${GITHUB_WORKSPACE}" ]; then[0m
+2026-04-11T07:02:28.5892622Z [36;1m  mkdir "/tmp/zmk-config/config"[0m
+2026-04-11T07:02:28.5892913Z [36;1m  cp -R config/* "/tmp/zmk-config/config/"[0m
+2026-04-11T07:02:28.5893174Z [36;1mfi[0m
+2026-04-11T07:02:28.5893422Z shell: sh -e {0}
+2026-04-11T07:02:28.5893596Z env:
+2026-04-11T07:02:28.5893764Z   build_dir: /tmp/tmp.6CXAMbBPmE
+2026-04-11T07:02:28.5894002Z   base_dir: /tmp/zmk-config
+2026-04-11T07:02:28.5894206Z   zephyr_version: 4.1.0
+2026-04-11T07:02:28.5894471Z   extra_west_args: -S "studio-rpc-usb-uart"
+2026-04-11T07:02:28.5894921Z   extra_cmake_args: -DSHIELD="sofle_left" -DZMK_EXTRA_MODULES='/__w/zmk-config/zmk-config'
+2026-04-11T07:02:28.5895344Z   display_name: sofle_left - nice_nano_v2
+2026-04-11T07:02:28.5895608Z   artifact_name: sofle_left-nice_nano_v2-zmk
+2026-04-11T07:02:28.5895886Z ##[endgroup]
+2026-04-11T07:02:28.7112294Z ##[group]Run actions/cache@v4
+2026-04-11T07:02:28.7112599Z with:
+2026-04-11T07:02:28.7113109Z   path: /tmp/zmk-config/modules/
+/tmp/zmk-config/tools/
+/tmp/zmk-config/zephyr/
+/tmp/zmk-config/bootloader/
+/tmp/zmk-config/zmk/
+
+2026-04-11T07:02:28.7113978Z   key: Linux-build-cache-zephyr-4.1.0-modules-639adf050b26d69d6ebe91b1eed0a74fc128655616b2e1138e6be2613ce3d8bc
+2026-04-11T07:02:28.7114667Z   restore-keys: Linux-build-cache-zephyr-4.1.0-modules-
+Linux-build-
+Linux-
+
+2026-04-11T07:02:28.7115054Z   enableCrossOsArchive: false
+2026-04-11T07:02:28.7115280Z   fail-on-cache-miss: false
+2026-04-11T07:02:28.7115491Z   lookup-only: false
+2026-04-11T07:02:28.7115671Z   save-always: false
+2026-04-11T07:02:28.7115843Z env:
+2026-04-11T07:02:28.7116015Z   build_dir: /tmp/tmp.6CXAMbBPmE
+2026-04-11T07:02:28.7116238Z   base_dir: /tmp/zmk-config
+2026-04-11T07:02:28.7116453Z   zephyr_version: 4.1.0
+2026-04-11T07:02:28.7116676Z   extra_west_args: -S "studio-rpc-usb-uart"
+2026-04-11T07:02:28.7117127Z   extra_cmake_args: -DSHIELD="sofle_left" -DZMK_EXTRA_MODULES='/__w/zmk-config/zmk-config'
+2026-04-11T07:02:28.7117552Z   display_name: sofle_left - nice_nano_v2
+2026-04-11T07:02:28.7117824Z   artifact_name: sofle_left-nice_nano_v2-zmk
+2026-04-11T07:02:28.7118084Z   cache_name: cache-zephyr-4.1.0-modules
+2026-04-11T07:02:28.7118318Z ##[endgroup]
+2026-04-11T07:02:28.7123202Z ##[command]/usr/bin/docker exec  6ca2667d08769352fcfa00ec4e8dd1b3561d63122be954315ac198518f758168 sh -c "cat /etc/*release | grep ^ID"
+2026-04-11T07:02:29.1911509Z Cache hit for: Linux-build-cache-zephyr-4.1.0-modules-639adf050b26d69d6ebe91b1eed0a74fc128655616b2e1138e6be2613ce3d8bc
+2026-04-11T07:02:30.4953740Z Received 0 of 662721014 (0.0%), 0.0 MBs/sec
+2026-04-11T07:02:31.5002539Z Received 109051904 of 662721014 (16.5%), 52.0 MBs/sec
+2026-04-11T07:02:32.4989537Z Received 264241152 of 662721014 (39.9%), 83.9 MBs/sec
+2026-04-11T07:02:33.4979069Z Received 402653184 of 662721014 (60.8%), 95.9 MBs/sec
+2026-04-11T07:02:34.4982291Z Received 624951296 of 662721014 (94.3%), 119.1 MBs/sec
+2026-04-11T07:02:34.7295557Z Received 662721014 of 662721014 (100.0%), 120.7 MBs/sec
+2026-04-11T07:02:34.7299075Z Cache Size: ~632 MB (662721014 B)
+2026-04-11T07:02:34.7364524Z [command]/usr/bin/tar -xf /__w/_temp/b8fa1e2e-9b0d-4003-914e-117684450551/cache.tgz -P -C /__w/zmk-config/zmk-config -z
+2026-04-11T07:02:47.3802839Z Cache restored successfully
+2026-04-11T07:02:47.4176889Z Cache restored from key: Linux-build-cache-zephyr-4.1.0-modules-639adf050b26d69d6ebe91b1eed0a74fc128655616b2e1138e6be2613ce3d8bc
+2026-04-11T07:02:47.4304543Z ##[group]Run west init -l "/tmp/zmk-config/config"
+2026-04-11T07:02:47.4304923Z [36;1mwest init -l "/tmp/zmk-config/config"[0m
+2026-04-11T07:02:47.4305282Z shell: sh -e {0}
+2026-04-11T07:02:47.4305461Z env:
+2026-04-11T07:02:47.4305638Z   build_dir: /tmp/tmp.6CXAMbBPmE
+2026-04-11T07:02:47.4305868Z   base_dir: /tmp/zmk-config
+2026-04-11T07:02:47.4306084Z   zephyr_version: 4.1.0
+2026-04-11T07:02:47.4306305Z   extra_west_args: -S "studio-rpc-usb-uart"
+2026-04-11T07:02:47.4306717Z   extra_cmake_args: -DSHIELD="sofle_left" -DZMK_EXTRA_MODULES='/__w/zmk-config/zmk-config'
+2026-04-11T07:02:47.4307303Z   display_name: sofle_left - nice_nano_v2
+2026-04-11T07:02:47.4307574Z   artifact_name: sofle_left-nice_nano_v2-zmk
+2026-04-11T07:02:47.4307820Z ##[endgroup]
+2026-04-11T07:02:47.5980861Z === Initializing from existing manifest repository config
+2026-04-11T07:02:47.5981971Z --- Creating /tmp/zmk-config/.west and local configuration file
+2026-04-11T07:02:47.5989886Z === Initialized. Now run "west update" inside /tmp/zmk-config.
+2026-04-11T07:02:47.6205329Z ##[group]Run west update --fetch-opt=--filter=tree:0
+2026-04-11T07:02:47.6205738Z [36;1mwest update --fetch-opt=--filter=tree:0[0m
+2026-04-11T07:02:47.6206104Z shell: sh -e {0}
+2026-04-11T07:02:47.6206284Z env:
+2026-04-11T07:02:47.6206459Z   build_dir: /tmp/tmp.6CXAMbBPmE
+2026-04-11T07:02:47.6206690Z   base_dir: /tmp/zmk-config
+2026-04-11T07:02:47.6206906Z   zephyr_version: 4.1.0
+2026-04-11T07:02:47.6207138Z   extra_west_args: -S "studio-rpc-usb-uart"
+2026-04-11T07:02:47.6207562Z   extra_cmake_args: -DSHIELD="sofle_left" -DZMK_EXTRA_MODULES='/__w/zmk-config/zmk-config'
+2026-04-11T07:02:47.6207986Z   display_name: sofle_left - nice_nano_v2
+2026-04-11T07:02:47.6208257Z   artifact_name: sofle_left-nice_nano_v2-zmk
+2026-04-11T07:02:47.6208506Z ##[endgroup]
+2026-04-11T07:02:47.8711580Z === updating zmk (zmk):
+2026-04-11T07:02:48.0139749Z HEAD is now at edf5c08 chore(main): release 0.3.0 (#2858)
+2026-04-11T07:02:48.0296872Z === updating zephyr (zephyr):
+2026-04-11T07:02:48.0322957Z --- zephyr: fetching, need revision v3.5.0+zmk-fixes
+2026-04-11T07:02:48.7254145Z From https://github.com/zmkfirmware/zephyr
+2026-04-11T07:02:48.7254731Z  * branch              v3.5.0+zmk-fixes -> FETCH_HEAD
+2026-04-11T07:02:49.8439367Z HEAD is now at dacab487 scripts: check_init_priorities: drop recursive child parsing
+2026-04-11T07:02:49.8837308Z === updating nanopb (modules/lib/nanopb):
+2026-04-11T07:02:49.9156631Z HEAD is now at 8c60555 Merge pull request #4 from petejohanson/build/find-protoc-fixes
+2026-04-11T07:02:49.9160768Z === updating zmk-studio-messages (modules/msgs/zmk-studio-messages):
+2026-04-11T07:02:49.9290949Z HEAD is now at 6cb4c28 refactor: Return detailed save changes response.
+2026-04-11T07:02:49.9294846Z === updating acpica (modules/lib/acpica):
+2026-04-11T07:02:50.1160456Z HEAD is now at 0333c2af os_specific: zephyr: add generic platform support
+2026-04-11T07:02:50.1165329Z === updating canopennode (modules/lib/canopennode):
+2026-04-11T07:02:50.1339541Z HEAD is now at dec12fa stack: map CANopenNode crc16_ccitt() to Zephyr crc16_itu_t()
+2026-04-11T07:02:50.1342926Z === updating cmsis (modules/hal/cmsis):
+2026-04-11T07:02:50.1549976Z HEAD is now at 5a00331 remove cmsis-dsp and cmsis-nn
+2026-04-11T07:02:50.1553382Z === updating cmsis-dsp (modules/lib/cmsis-dsp):
+2026-04-11T07:02:50.4714502Z HEAD is now at ff7b5fd compute Library: fix inline function that is not static
+2026-04-11T07:02:50.4719370Z === updating cmsis-nn (modules/lib/cmsis-nn):
+2026-04-11T07:02:50.5256930Z HEAD is now at 0c8669d Merge pull request #1 from XenuIsWatching/zephyr
+2026-04-11T07:02:50.5261203Z === updating fatfs (modules/fs/fatfs):
+2026-04-11T07:02:50.5445927Z HEAD is now at 427159b zephyr: fix ffconf.h override use of STRINGIZE
+2026-04-11T07:02:50.5449028Z === updating hal_ambiq (modules/hal/ambiq):
+2026-04-11T07:02:50.6104166Z HEAD is now at 0a7c993 modules: hal_ambiq: Add Ambiq Apollo4 Blue Plus SoC
+2026-04-11T07:02:50.6107632Z === updating hal_atmel (modules/hal/atmel):
+2026-04-11T07:02:50.8882490Z HEAD is now at 5ab4300 Remove LITTLE_ENDIAN and __LITTLE_ENDIAN defines
+2026-04-11T07:02:50.8886980Z === updating hal_espressif (modules/hal/espressif):
+2026-04-11T07:02:51.6388964Z HEAD is now at 31fc5758 random: rename header file as in Zephyr.
+2026-04-11T07:02:51.6395625Z === updating hal_ethos_u (modules/hal/ethos_u):
+2026-04-11T07:02:51.6570484Z HEAD is now at 90ada2e Clarify README regarding CPU choice
+2026-04-11T07:02:51.6574334Z === updating hal_gigadevice (modules/hal/gigadevice):
+2026-04-11T07:02:51.7159386Z HEAD is now at 2994b7d README.md: add pllmf and pack exception for gd32a50x
+2026-04-11T07:02:51.7164844Z === updating hal_intel (modules/hal/intel):
+2026-04-11T07:02:51.7334280Z HEAD is now at b3b43d4 pm: fix handling reset prep in incorrect place
+2026-04-11T07:02:51.7338366Z === updating hal_nordic (modules/hal/nordic):
+2026-04-11T07:02:52.3835043Z HEAD is now at 884c4d6 nrfx: Update to version 3.6.0
+2026-04-11T07:02:52.3839704Z === updating hal_nuvoton (modules/hal/nuvoton):
+2026-04-11T07:02:52.4402776Z HEAD is now at 3e0a4c4 hal: NuMaker M46x: revise API name of M460 FMC erase bank
+2026-04-11T07:02:52.4405935Z === updating hal_quicklogic (modules/hal/quicklogic):
+2026-04-11T07:02:52.4542757Z HEAD is now at b3a66fe Remove references to FPGA IP core drivers
+2026-04-11T07:02:52.4546606Z === updating hal_renesas (modules/hal/renesas):
+2026-04-11T07:02:52.4703434Z HEAD is now at a6cf2af Remove dynamic memory allocation from PD code
+2026-04-11T07:02:52.4707371Z === updating hal_rpi_pico (modules/hal/rpi_pico):
+2026-04-11T07:02:52.5215774Z HEAD is now at fba7162 Merge pull request #5 from soburi/zephyr_timer_modification
+2026-04-11T07:02:52.5217813Z === updating hal_stm32 (modules/hal/stm32):
+2026-04-11T07:02:54.2797787Z HEAD is now at 89ef0a3 stm32cube: stm32h5:  ethernet: PTP clock doesn’t works
+2026-04-11T07:02:54.2803179Z === updating hal_telink (modules/hal/telink):
+2026-04-11T07:02:54.2993752Z HEAD is now at 38573af B91 ADC driver support
+2026-04-11T07:02:54.2997479Z === updating hal_wurthelektronik (modules/hal/wurthelektronik):
+2026-04-11T07:02:54.3135168Z HEAD is now at 24ca987 Initialized WE HAL module repository.
+2026-04-11T07:02:54.3138827Z === updating libmetal (modules/hal/libmetal):
+2026-04-11T07:02:54.3316171Z HEAD is now at b91611a lib: update libmetal to release v2023.04.0
+2026-04-11T07:02:54.3319602Z === updating liblc3 (modules/lib/liblc3):
+2026-04-11T07:02:54.3486813Z HEAD is now at 448f3de Merge pull request #8 from carlescufi/rename
+2026-04-11T07:02:54.3490056Z === updating littlefs (modules/fs/littlefs):
+2026-04-11T07:02:54.3644987Z HEAD is now at ca583fd Merge tag 'v2.5.0' of https://github.com/littlefs-project/littlefs into zephyr
+2026-04-11T07:02:54.3648502Z === updating lvgl (modules/lib/gui/lvgl):
+2026-04-11T07:02:54.6508704Z HEAD is now at 8a6a2d1 zephyr: Move gluecode back to zephyr main repository
+2026-04-11T07:02:54.6513199Z === updating mbedtls (modules/crypto/mbedtls):
+2026-04-11T07:02:54.7908982Z HEAD is now at c38dc78d Merge pull request #44 from d3zd3z/zephyr-3.4.0
+2026-04-11T07:02:54.7913907Z === updating mipi-sys-t (modules/debug/mipi-sys-t):
+2026-04-11T07:02:54.8096001Z HEAD is now at a819419 library: allow building without wchar support
+2026-04-11T07:02:54.8099863Z === updating nrf_hw_models (modules/bsim_hw_models/nrf_hw_models):
+2026-04-11T07:02:54.8273863Z HEAD is now at f459580 TEMP & ECB: Fix INTEN sideeffect prototypes
+2026-04-11T07:02:54.8277721Z === updating open-amp (modules/lib/open-amp):
+2026-04-11T07:02:54.8447311Z HEAD is now at 42b7c57 cmake: Compile with WITH_DCACHE_RSC_TABLE
+2026-04-11T07:02:54.8451013Z === updating percepio (modules/debug/percepio):
+2026-04-11T07:02:54.8693548Z HEAD is now at a3728ef Merge pull request #4 from peter-mitsis/pmitsis-k_mem_block
+2026-04-11T07:02:54.8697399Z === updating picolibc (modules/lib/picolibc):
+2026-04-11T07:02:55.0241646Z HEAD is now at d07c38ff Version 1.8.2
+2026-04-11T07:02:55.0247208Z === updating segger (modules/debug/segger):
+2026-04-11T07:02:55.0387444Z HEAD is now at 9d01912 segger: config: RTT spinlock implementation
+2026-04-11T07:02:55.0390978Z === updating tinycrypt (modules/crypto/tinycrypt):
+2026-04-11T07:02:55.0528260Z HEAD is now at 3e9a49d cmake: Fix conditional in root CMakeLists.txt
+2026-04-11T07:02:55.0531887Z === updating trusted-firmware-a (modules/tee/tf-a/trusted-firmware-a):
+2026-04-11T07:02:55.2346695Z HEAD is now at 421dc050 Merge pull request #3 from SgrrZhf/topics/huizha01/2.9.0-updates
+2026-04-11T07:02:55.2353773Z === updating uoscore-uedhoc (modules/lib/uoscore-uedhoc):
+2026-04-11T07:02:55.2586844Z HEAD is now at 5fe2cb6 2.2.1
+2026-04-11T07:02:55.2590485Z === updating zcbor (modules/lib/zcbor):
+2026-04-11T07:02:55.2772781Z HEAD is now at 67fd8bb Update version from 0.6.99 to 0.7.0
+2026-04-11T07:02:55.3033777Z ##[group]Run west zephyr-export
+2026-04-11T07:02:55.3034286Z [36;1mwest zephyr-export[0m
+2026-04-11T07:02:55.3034803Z shell: sh -e {0}
+2026-04-11T07:02:55.3035117Z env:
+2026-04-11T07:02:55.3035421Z   build_dir: /tmp/tmp.6CXAMbBPmE
+2026-04-11T07:02:55.3035843Z   base_dir: /tmp/zmk-config
+2026-04-11T07:02:55.3036228Z   zephyr_version: 4.1.0
+2026-04-11T07:02:55.3036641Z   extra_west_args: -S "studio-rpc-usb-uart"
+2026-04-11T07:02:55.3037385Z   extra_cmake_args: -DSHIELD="sofle_left" -DZMK_EXTRA_MODULES='/__w/zmk-config/zmk-config'
+2026-04-11T07:02:55.3038166Z   display_name: sofle_left - nice_nano_v2
+2026-04-11T07:02:55.3038663Z   artifact_name: sofle_left-nice_nano_v2-zmk
+2026-04-11T07:02:55.3039125Z ##[endgroup]
+2026-04-11T07:02:55.8319438Z Zephyr (/tmp/zmk-config/zephyr/share/zephyr-package/cmake)
+2026-04-11T07:02:55.8320170Z has been added to the user package registry in:
+2026-04-11T07:02:55.8320688Z ~/.cmake/packages/Zephyr
+2026-04-11T07:02:55.8320934Z 
+2026-04-11T07:02:56.0977865Z ZephyrUnittest (/tmp/zmk-config/zephyr/share/zephyrunittest-package/cmake)
+2026-04-11T07:02:56.0978361Z has been added to the user package registry in:
+2026-04-11T07:02:56.0978666Z ~/.cmake/packages/ZephyrUnittest
+2026-04-11T07:02:56.0978830Z 
+2026-04-11T07:02:56.1265219Z ##[group]Run west build -s zmk/app -d "/tmp/tmp.6CXAMbBPmE" -b "nice_nano_v2" -S "studio-rpc-usb-uart" -- -DZMK_CONFIG=/tmp/zmk-config/config -DSHIELD="sofle_left" -DZMK_EXTRA_MODULES='/__w/zmk-config/zmk-config' -DCONFIG_ZMK_STUDIO=y
+2026-04-11T07:02:56.1266789Z [36;1mwest build -s zmk/app -d "/tmp/tmp.6CXAMbBPmE" -b "nice_nano_v2" -S "studio-rpc-usb-uart" -- -DZMK_CONFIG=/tmp/zmk-config/config -DSHIELD="sofle_left" -DZMK_EXTRA_MODULES='/__w/zmk-config/zmk-config' -DCONFIG_ZMK_STUDIO=y[0m
+2026-04-11T07:02:56.1267748Z shell: sh -x {0}
+2026-04-11T07:02:56.1267943Z env:
+2026-04-11T07:02:56.1268122Z   build_dir: /tmp/tmp.6CXAMbBPmE
+2026-04-11T07:02:56.1268372Z   base_dir: /tmp/zmk-config
+2026-04-11T07:02:56.1268589Z   zephyr_version: 4.1.0
+2026-04-11T07:02:56.1268820Z   extra_west_args: -S "studio-rpc-usb-uart"
+2026-04-11T07:02:56.1269245Z   extra_cmake_args: -DSHIELD="sofle_left" -DZMK_EXTRA_MODULES='/__w/zmk-config/zmk-config'
+2026-04-11T07:02:56.1269704Z   display_name: sofle_left - nice_nano_v2
+2026-04-11T07:02:56.1269980Z   artifact_name: sofle_left-nice_nano_v2-zmk
+2026-04-11T07:02:56.1270239Z ##[endgroup]
+2026-04-11T07:02:56.1779391Z + west build -s zmk/app -d /tmp/tmp.6CXAMbBPmE -b nice_nano_v2 -S studio-rpc-usb-uart -- -DZMK_CONFIG=/tmp/zmk-config/config -DSHIELD=sofle_left -DZMK_EXTRA_MODULES=/__w/zmk-config/zmk-config -DCONFIG_ZMK_STUDIO=y
+2026-04-11T07:02:56.3767611Z -- west build: generating a build system
+2026-04-11T07:02:56.6519263Z Loading Zephyr default modules (Zephyr base).
+2026-04-11T07:02:56.6521077Z -- Application: /tmp/zmk-config/zmk/app
+2026-04-11T07:02:56.6521940Z -- CMake version: 3.31.6
+2026-04-11T07:02:56.7602951Z -- Found Python3: /usr/bin/python3 (found suitable version "3.12.3", minimum required is "3.8") found components: Interpreter
+2026-04-11T07:02:56.7717669Z -- Cache files will be written to: /tmp/zmk-config/zephyr/.cache
+2026-04-11T07:02:56.7778043Z -- Zephyr version: 3.5.0 (/tmp/zmk-config/zephyr)
+2026-04-11T07:02:56.8411236Z -- Found west (found suitable version "1.5.0", minimum required is "0.14.0")
+2026-04-11T07:02:57.3335551Z -- Adding /tmp/zmk-config/zmk/app/boards/shields/sofle
+2026-04-11T07:02:57.3336526Z -- ZMK Config directory: /tmp/zmk-config/config
+2026-04-11T07:02:57.3337218Z -- ZMK Config Kconfig: /tmp/zmk-config/config/sofle.conf
+2026-04-11T07:02:57.3337921Z -- Using keymap file: /tmp/zmk-config/config/sofle.keymap
+2026-04-11T07:02:57.3338825Z -- Using keymap file: /tmp/zmk-config/config/sofle.keymap
+2026-04-11T07:02:57.3403930Z -- Board: nice_nano_v2
+2026-04-11T07:02:57.3440075Z -- Shield(s): sofle_left
+2026-04-11T07:02:57.4694991Z -- Snippet(s): studio-rpc-usb-uart
+2026-04-11T07:02:57.4867798Z -- ZEPHYR_TOOLCHAIN_VARIANT not set, trying to locate Zephyr SDK
+2026-04-11T07:02:57.4891647Z -- Found host-tools: zephyr 0.16.9 (/opt/zephyr-sdk-0.16.9)
+2026-04-11T07:02:57.4899644Z -- Found toolchain: zephyr 0.16.9 (/opt/zephyr-sdk-0.16.9)
+2026-04-11T07:02:57.4936264Z -- Found Dtc: /opt/zephyr-sdk-0.16.9/sysroots/x86_64-pokysdk-linux/usr/bin/dtc (found suitable version "1.6.0", minimum required is "1.4.6")
+2026-04-11T07:02:57.4940836Z -- Found BOARD.dts: /tmp/zmk-config/zmk/app/boards/arm/nice_nano/nice_nano_v2.dts
+2026-04-11T07:02:57.4941966Z -- Found devicetree overlay: /tmp/zmk-config/zmk/app/boards/shields/sofle/sofle_left.overlay
+2026-04-11T07:02:57.4942705Z -- Found devicetree overlay: /tmp/zmk-config/zmk/app/boards/shields/sofle/boards/nice_nano_v2.overlay
+2026-04-11T07:02:57.4943345Z -- Found devicetree overlay: /tmp/zmk-config/config/sofle.keymap
+2026-04-11T07:02:57.4943987Z -- Found devicetree overlay: /tmp/zmk-config/zmk/app/snippets/studio-rpc-usb-uart/studio-rpc-usb-uart.overlay
+2026-04-11T07:02:57.8662700Z -- Generated zephyr.dts: /tmp/tmp.6CXAMbBPmE/zephyr/zephyr.dts
+2026-04-11T07:02:57.8663748Z -- Generated devicetree_generated.h: /tmp/tmp.6CXAMbBPmE/zephyr/include/generated/devicetree_generated.h
+2026-04-11T07:02:58.2400299Z -- Including generated dts.cmake file: /tmp/tmp.6CXAMbBPmE/zephyr/dts.cmake
+2026-04-11T07:02:58.9903814Z 
+2026-04-11T07:02:58.9905048Z warning: Deprecated symbol NRF_STORE_REBOOT_TYPE_GPREGRET is enabled.
+2026-04-11T07:02:58.9905570Z 
+2026-04-11T07:02:59.0183284Z 
+2026-04-11T07:02:59.0183797Z Parsing /tmp/zmk-config/zmk/app/Kconfig
+2026-04-11T07:02:59.0184938Z /tmp/zmk-config/config/sofle.conf:5: warning: attempt to assign the value 'y' to the undefined symbol ZMK_BLE_STATUS
+2026-04-11T07:02:59.0185692Z 
+2026-04-11T07:02:59.0186295Z /tmp/zmk-config/config/sofle.conf:8: warning: attempt to assign the value 'y' to the undefined symbol BT_CTLR_TX_PWR_PLUS_0
+2026-04-11T07:02:59.0187116Z 
+2026-04-11T07:02:59.0187706Z /tmp/zmk-config/config/sofle.conf:15: warning: attempt to assign the value 'n' to the undefined symbol ZMK_EXT_POWER_START
+2026-04-11T07:02:59.0188282Z 
+2026-04-11T07:02:59.0188388Z error: Aborting due to Kconfig warnings
+2026-04-11T07:02:59.0188584Z 
+2026-04-11T07:02:59.0188866Z Loaded configuration '/tmp/zmk-config/zmk/app/boards/arm/nice_nano/nice_nano_v2_defconfig'
+2026-04-11T07:02:59.0189413Z Merged configuration '/tmp/zmk-config/zmk/app/prj.conf'
+2026-04-11T07:02:59.0189811Z Merged configuration '/tmp/zmk-config/config/sofle.conf'
+2026-04-11T07:02:59.0190299Z Merged configuration '/tmp/zmk-config/zmk/app/boards/shields/sofle/sofle_left.conf'
+2026-04-11T07:02:59.0190978Z Merged configuration '/tmp/zmk-config/zmk/app/snippets/studio-rpc-usb-uart/studio-rpc-usb-uart.conf'
+2026-04-11T07:02:59.0192053Z Merged configuration '/tmp/tmp.6CXAMbBPmE/zephyr/misc/generated/extra_kconfig_options.conf'
+2026-04-11T07:02:59.1035966Z CMake Error at /tmp/zmk-config/zephyr/cmake/modules/kconfig.cmake:355 (message):
+2026-04-11T07:02:59.1036524Z   command failed with return code: 1
+2026-04-11T07:02:59.1036807Z Call Stack (most recent call first):
+2026-04-11T07:02:59.1037198Z   /tmp/zmk-config/zephyr/cmake/modules/zephyr_default.cmake:129 (include)
+2026-04-11T07:02:59.1037836Z   /tmp/zmk-config/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:66 (include)
+2026-04-11T07:02:59.1038921Z   /tmp/zmk-config/zephyr/share/zephyr-package/cmake/ZephyrConfig.cmake:92 (include_boilerplate)
+2026-04-11T07:02:59.1039724Z   CMakeLists.txt:9 (find_package)
+2026-04-11T07:02:59.1039980Z 
+2026-04-11T07:02:59.1039984Z 
+2026-04-11T07:02:59.1040123Z -- Configuring incomplete, errors occurred!
+2026-04-11T07:02:59.1066872Z FATAL ERROR: command exited with status 1: /usr/local/bin/cmake -DWEST_PYTHON=/usr/bin/python3 -B/tmp/tmp.6CXAMbBPmE -GNinja -DBOARD=nice_nano_v2 -DZMK_CONFIG=/tmp/zmk-config/config -DSHIELD=sofle_left -DZMK_EXTRA_MODULES=/__w/zmk-config/zmk-config -DCONFIG_ZMK_STUDIO=y -DSNIPPET=studio-rpc-usb-uart -S/tmp/zmk-config/zmk/app
+2026-04-11T07:02:59.1295674Z ##[error]Process completed with exit code 1.
+2026-04-11T07:02:59.1348871Z ##[group]Run if [ -f "/tmp/tmp.6CXAMbBPmE/zephyr/.config" ]
+2026-04-11T07:02:59.1349311Z [36;1mif [ -f "/tmp/tmp.6CXAMbBPmE/zephyr/.config" ][0m
+2026-04-11T07:02:59.1349601Z [36;1mthen[0m
+2026-04-11T07:02:59.1349875Z [36;1m  grep -v -e "^#" -e "^$" "/tmp/tmp.6CXAMbBPmE/zephyr/.config" | sort[0m
+2026-04-11T07:02:59.1350197Z [36;1melse[0m
+2026-04-11T07:02:59.1350375Z [36;1m  echo "No Kconfig output"[0m
+2026-04-11T07:02:59.1350600Z [36;1mfi[0m
+2026-04-11T07:02:59.1350843Z shell: sh -e {0}
+2026-04-11T07:02:59.1351008Z env:
+2026-04-11T07:02:59.1351185Z   build_dir: /tmp/tmp.6CXAMbBPmE
+2026-04-11T07:02:59.1351732Z   base_dir: /tmp/zmk-config
+2026-04-11T07:02:59.1351980Z   zephyr_version: 4.1.0
+2026-04-11T07:02:59.1352203Z   extra_west_args: -S "studio-rpc-usb-uart"
+2026-04-11T07:02:59.1352622Z   extra_cmake_args: -DSHIELD="sofle_left" -DZMK_EXTRA_MODULES='/__w/zmk-config/zmk-config'
+2026-04-11T07:02:59.1353049Z   display_name: sofle_left - nice_nano_v2
+2026-04-11T07:02:59.1353354Z   artifact_name: sofle_left-nice_nano_v2-zmk
+2026-04-11T07:02:59.1353599Z ##[endgroup]
+2026-04-11T07:02:59.1849416Z No Kconfig output
+2026-04-11T07:02:59.1905338Z ##[group]Run if [ -f "/tmp/tmp.6CXAMbBPmE/zephyr/zephyr.dts" ]
+2026-04-11T07:02:59.1905793Z [36;1mif [ -f "/tmp/tmp.6CXAMbBPmE/zephyr/zephyr.dts" ][0m
+2026-04-11T07:02:59.1906099Z [36;1mthen[0m
+2026-04-11T07:02:59.1906326Z [36;1m  cat "/tmp/tmp.6CXAMbBPmE/zephyr/zephyr.dts"[0m
+2026-04-11T07:02:59.1906694Z [36;1melif [ -f "/tmp/tmp.6CXAMbBPmE/zephyr/zephyr.dts.pre" ][0m
+2026-04-11T07:02:59.1907006Z [36;1mthen[0m
+2026-04-11T07:02:59.1907256Z [36;1m  cat -s "/tmp/tmp.6CXAMbBPmE/zephyr/zephyr.dts.pre"[0m
+2026-04-11T07:02:59.1907550Z [36;1melse[0m
+2026-04-11T07:02:59.1907737Z [36;1m  echo "No Devicetree output"[0m
+2026-04-11T07:02:59.1907974Z [36;1mfi[0m
+2026-04-11T07:02:59.1908218Z shell: sh -e {0}
+2026-04-11T07:02:59.1908403Z env:
+2026-04-11T07:02:59.1908584Z   build_dir: /tmp/tmp.6CXAMbBPmE
+2026-04-11T07:02:59.1908817Z   base_dir: /tmp/zmk-config
+2026-04-11T07:02:59.1909029Z   zephyr_version: 4.1.0
+2026-04-11T07:02:59.1909280Z   extra_west_args: -S "studio-rpc-usb-uart"
+2026-04-11T07:02:59.1909687Z   extra_cmake_args: -DSHIELD="sofle_left" -DZMK_EXTRA_MODULES='/__w/zmk-config/zmk-config'
+2026-04-11T07:02:59.1910111Z   display_name: sofle_left - nice_nano_v2
+2026-04-11T07:02:59.1910381Z   artifact_name: sofle_left-nice_nano_v2-zmk
+2026-04-11T07:02:59.1910623Z ##[endgroup]
+2026-04-11T07:02:59.2427956Z /dts-v1/;
+2026-04-11T07:02:59.2428147Z 
+2026-04-11T07:02:59.2428260Z / {
+2026-04-11T07:02:59.2428960Z 	#address-cells = < 0x1 >;
+2026-04-11T07:02:59.2429364Z 	#size-cells = < 0x1 >;
+2026-04-11T07:02:59.2429711Z 	model = "nice!nano";
+2026-04-11T07:02:59.2430054Z 	compatible = "nice,nano";
+2026-04-11T07:02:59.2430404Z 	chosen {
+2026-04-11T07:02:59.2430696Z 		zephyr,entropy = &rng;
+2026-04-11T07:02:59.2431119Z 		zephyr,flash-controller = &flash_controller;
+2026-04-11T07:02:59.2431855Z 		zephyr,code-partition = &code_partition;
+2026-04-11T07:02:59.2432347Z 		zephyr,sram = &sram0;
+2026-04-11T07:02:59.2432721Z 		zephyr,flash = &flash0;
+2026-04-11T07:02:59.2433103Z 		zmk,battery = &vbatt;
+2026-04-11T07:02:59.2433546Z 		zephyr,display = &oled;
+2026-04-11T07:02:59.2433922Z 		zmk,kscan = &kscan0;
+2026-04-11T07:02:59.2434294Z 		zmk,underglow = &led_strip;
+2026-04-11T07:02:59.2434807Z 		zmk,studio-rpc-uart = &snippet_studio_rpc_usb_uart;
+2026-04-11T07:02:59.2435310Z 	};
+2026-04-11T07:02:59.2435584Z 	aliases {
+2026-04-11T07:02:59.2435847Z 	};
+2026-04-11T07:02:59.2436080Z 	soc {
+2026-04-11T07:02:59.2436451Z 		#address-cells = < 0x1 >;
+2026-04-11T07:02:59.2436812Z 		#size-cells = < 0x1 >;
+2026-04-11T07:02:59.2437416Z 		compatible = "nordic,nrf52840-qiaa", "nordic,nrf52840", "nordic,nrf52", "simple-bus";
+2026-04-11T07:02:59.2438180Z 		interrupt-parent = < &nvic >;
+2026-04-11T07:02:59.2438557Z 		ranges;
+2026-04-11T07:02:59.2438880Z 		nvic: interrupt-controller@e000e100 {
+2026-04-11T07:02:59.2439696Z 			#address-cells = < 0x1 >;
+2026-04-11T07:02:59.2440128Z 			compatible = "arm,v7m-nvic";
+2026-04-11T07:02:59.2440540Z 			reg = < 0xe000e100 0xc00 >;
+2026-04-11T07:02:59.2440931Z 			interrupt-controller;
+2026-04-11T07:02:59.2442411Z 			#interrupt-cells = < 0x2 >;
+2026-04-11T07:02:59.2442857Z 			arm,num-irq-priority-bits = < 0x3 >;
+2026-04-11T07:02:59.2443282Z 			phandle = < 0x1 >;
+2026-04-11T07:02:59.2443590Z 		};
+2026-04-11T07:02:59.2443875Z 		systick: timer@e000e010 {
+2026-04-11T07:02:59.2444253Z 			compatible = "arm,armv7m-systick";
+2026-04-11T07:02:59.2444664Z 			reg = < 0xe000e010 0x10 >;
+2026-04-11T07:02:59.2445031Z 			status = "disabled";
+2026-04-11T07:02:59.2445334Z 		};
+2026-04-11T07:02:59.2445594Z 		ficr: ficr@10000000 {
+2026-04-11T07:02:59.2446087Z 			compatible = "nordic,nrf-ficr";
+2026-04-11T07:02:59.2446480Z 			reg = < 0x10000000 0x1000 >;
+2026-04-11T07:02:59.2446837Z 			status = "okay";
+2026-04-11T07:02:59.2447287Z 		};
+2026-04-11T07:02:59.2447548Z 		uicr: uicr@10001000 {
+2026-04-11T07:02:59.2447864Z 			compatible = "nordic,nrf-uicr";
+2026-04-11T07:02:59.2448107Z 			reg = < 0x10001000 0x1000 >;
+2026-04-11T07:02:59.2448417Z 			status = "okay";
+2026-04-11T07:02:59.2448591Z 		};
+2026-04-11T07:02:59.2449133Z 		sram0: memory@20000000 {
+2026-04-11T07:02:59.2449859Z 			compatible = "mmio-sram";
+2026-04-11T07:02:59.2450137Z 			reg = < 0x20000000 0x40000 >;
+2026-04-11T07:02:59.2450345Z 		};
+2026-04-11T07:02:59.2450507Z 		clock: clock@40000000 {
+2026-04-11T07:02:59.2450721Z 			compatible = "nordic,nrf-clock";
+2026-04-11T07:02:59.2450963Z 			reg = < 0x40000000 0x1000 >;
+2026-04-11T07:02:59.2451188Z 			interrupts = < 0x0 0x1 >;
+2026-04-11T07:02:59.2451660Z 			status = "okay";
+2026-04-11T07:02:59.2451868Z 		};
+2026-04-11T07:02:59.2452031Z 		power: power@40000000 {
+2026-04-11T07:02:59.2452250Z 			compatible = "nordic,nrf-power";
+2026-04-11T07:02:59.2452500Z 			reg = < 0x40000000 0x1000 >;
+2026-04-11T07:02:59.2452721Z 			interrupts = < 0x0 0x1 >;
+2026-04-11T07:02:59.2452925Z 			status = "okay";
+2026-04-11T07:02:59.2453115Z 			#address-cells = < 0x1 >;
+2026-04-11T07:02:59.2453319Z 			#size-cells = < 0x1 >;
+2026-04-11T07:02:59.2453520Z 			gpregret1: gpregret1@4000051c {
+2026-04-11T07:02:59.2453759Z 				#address-cells = < 0x1 >;
+2026-04-11T07:02:59.2453969Z 				#size-cells = < 0x1 >;
+2026-04-11T07:02:59.2454184Z 				compatible = "nordic,nrf-gpregret";
+2026-04-11T07:02:59.2454431Z 				reg = < 0x4000051c 0x1 >;
+2026-04-11T07:02:59.2454632Z 				status = "okay";
+2026-04-11T07:02:59.2454805Z 			};
+2026-04-11T07:02:59.2454968Z 			gpregret2: gpregret2@40000520 {
+2026-04-11T07:02:59.2455192Z 				#address-cells = < 0x1 >;
+2026-04-11T07:02:59.2455398Z 				#size-cells = < 0x1 >;
+2026-04-11T07:02:59.2455604Z 				compatible = "nordic,nrf-gpregret";
+2026-04-11T07:02:59.2455840Z 				reg = < 0x40000520 0x1 >;
+2026-04-11T07:02:59.2456036Z 				status = "okay";
+2026-04-11T07:02:59.2456199Z 			};
+2026-04-11T07:02:59.2456344Z 		};
+2026-04-11T07:02:59.2456499Z 		radio: radio@40001000 {
+2026-04-11T07:02:59.2456709Z 			compatible = "nordic,nrf-radio";
+2026-04-11T07:02:59.2456941Z 			reg = < 0x40001000 0x1000 >;
+2026-04-11T07:02:59.2457193Z 			interrupts = < 0x1 0x1 >;
+2026-04-11T07:02:59.2457390Z 			status = "okay";
+2026-04-11T07:02:59.2457575Z 			ieee802154-supported;
+2026-04-11T07:02:59.2457786Z 			ble-2mbps-supported;
+2026-04-11T07:02:59.2457985Z 			ble-coded-phy-supported;
+2026-04-11T07:02:59.2458206Z 			tx-high-power-supported;
+2026-04-11T07:02:59.2458421Z 			ieee802154: ieee802154 {
+2026-04-11T07:02:59.2458632Z 				compatible = "nordic,nrf-ieee802154";
+2026-04-11T07:02:59.2458881Z 				status = "disabled";
+2026-04-11T07:02:59.2459064Z 			};
+2026-04-11T07:02:59.2459201Z 		};
+2026-04-11T07:02:59.2459403Z 		uart0: pro_micro_serial: uart@40002000 {
+2026-04-11T07:02:59.2459896Z 			compatible = "nordic,nrf-uarte";
+2026-04-11T07:02:59.2460222Z 			reg = < 0x40002000 0x1000 >;
+2026-04-11T07:02:59.2460514Z 			interrupts = < 0x2 0x1 >;
+2026-04-11T07:02:59.2460738Z 			status = "disabled";
+2026-04-11T07:02:59.2461531Z 			current-speed = < 0x1c200 >;
+2026-04-11T07:02:59.2461807Z 			pinctrl-0 = < &uart0_default >;
+2026-04-11T07:02:59.2462049Z 			pinctrl-1 = < &uart0_sleep >;
+2026-04-11T07:02:59.2462294Z 			pinctrl-names = "default", "sleep";
+2026-04-11T07:02:59.2462537Z 		};
+2026-04-11T07:02:59.2462712Z 		i2c0: pro_micro_i2c: i2c@40003000 {
+2026-04-11T07:02:59.2462965Z 			compatible = "nordic,nrf-twi";
+2026-04-11T07:02:59.2463206Z 			#address-cells = < 0x1 >;
+2026-04-11T07:02:59.2463417Z 			#size-cells = < 0x0 >;
+2026-04-11T07:02:59.2463618Z 			reg = < 0x40003000 0x1000 >;
+2026-04-11T07:02:59.2463836Z 			clock-frequency = < 0x186a0 >;
+2026-04-11T07:02:59.2464054Z 			interrupts = < 0x3 0x1 >;
+2026-04-11T07:02:59.2464272Z 			easydma-maxcnt-bits = < 0x10 >;
+2026-04-11T07:02:59.2464495Z 			status = "okay";
+2026-04-11T07:02:59.2464676Z 			pinctrl-0 = < &i2c0_default >;
+2026-04-11T07:02:59.2464898Z 			pinctrl-1 = < &i2c0_sleep >;
+2026-04-11T07:02:59.2465128Z 			pinctrl-names = "default", "sleep";
+2026-04-11T07:02:59.2465360Z 			oled: ssd1306@3c {
+2026-04-11T07:02:59.2465573Z 				compatible = "solomon,ssd1306fb";
+2026-04-11T07:02:59.2465807Z 				reg = < 0x3c >;
+2026-04-11T07:02:59.2465977Z 				width = < 0x80 >;
+2026-04-11T07:02:59.2466291Z 				height = < 0x20 >;
+2026-04-11T07:02:59.2466495Z 				segment-offset = < 0x0 >;
+2026-04-11T07:02:59.2466710Z 				page-offset = < 0x0 >;
+2026-04-11T07:02:59.2466915Z 				display-offset = < 0x0 >;
+2026-04-11T07:02:59.2467128Z 				multiplex-ratio = < 0x1f >;
+2026-04-11T07:02:59.2467342Z 				segment-remap;
+2026-04-11T07:02:59.2467514Z 				com-invdir;
+2026-04-11T07:02:59.2467758Z 				com-sequential;
+2026-04-11T07:02:59.2467945Z 				inversion-on;
+2026-04-11T07:02:59.2468129Z 				prechargep = < 0x22 >;
+2026-04-11T07:02:59.2468318Z 			};
+2026-04-11T07:02:59.2468464Z 		};
+2026-04-11T07:02:59.2468616Z 		spi0: spi@40003000 {
+2026-04-11T07:02:59.2468812Z 			compatible = "nordic,nrf-spim";
+2026-04-11T07:02:59.2469047Z 			#address-cells = < 0x1 >;
+2026-04-11T07:02:59.2469256Z 			#size-cells = < 0x0 >;
+2026-04-11T07:02:59.2469459Z 			reg = < 0x40003000 0x1000 >;
+2026-04-11T07:02:59.2469676Z 			interrupts = < 0x3 0x1 >;
+2026-04-11T07:02:59.2469892Z 			max-frequency = < 0x7a1200 >;
+2026-04-11T07:02:59.2470123Z 			easydma-maxcnt-bits = < 0x10 >;
+2026-04-11T07:02:59.2470346Z 			status = "disabled";
+2026-04-11T07:02:59.2470524Z 		};
+2026-04-11T07:02:59.2470673Z 		i2c1: i2c@40004000 {
+2026-04-11T07:02:59.2470863Z 			compatible = "nordic,nrf-twim";
+2026-04-11T07:02:59.2471094Z 			#address-cells = < 0x1 >;
+2026-04-11T07:02:59.2471299Z 			#size-cells = < 0x0 >;
+2026-04-11T07:02:59.2471821Z 			reg = < 0x40004000 0x1000 >;
+2026-04-11T07:02:59.2472173Z 			clock-frequency = < 0x186a0 >;
+2026-04-11T07:02:59.2472402Z 			interrupts = < 0x4 0x1 >;
+2026-04-11T07:02:59.2472610Z 			easydma-maxcnt-bits = < 0x10 >;
+2026-04-11T07:02:59.2472849Z 			status = "disabled";
+2026-04-11T07:02:59.2473027Z 		};
+2026-04-11T07:02:59.2473189Z 		spi1: pro_micro_spi: spi@40004000 {
+2026-04-11T07:02:59.2473437Z 			compatible = "nordic,nrf-spim";
+2026-04-11T07:02:59.2473671Z 			#address-cells = < 0x1 >;
+2026-04-11T07:02:59.2473869Z 			#size-cells = < 0x0 >;
+2026-04-11T07:02:59.2474066Z 			reg = < 0x40004000 0x1000 >;
+2026-04-11T07:02:59.2474271Z 			interrupts = < 0x4 0x1 >;
+2026-04-11T07:02:59.2474480Z 			max-frequency = < 0x7a1200 >;
+2026-04-11T07:02:59.2474698Z 			easydma-maxcnt-bits = < 0x10 >;
+2026-04-11T07:02:59.2474914Z 			status = "disabled";
+2026-04-11T07:02:59.2475107Z 			pinctrl-0 = < &spi1_default >;
+2026-04-11T07:02:59.2475321Z 			pinctrl-1 = < &spi1_sleep >;
+2026-04-11T07:02:59.2475541Z 			pinctrl-names = "default", "sleep";
+2026-04-11T07:02:59.2475764Z 		};
+2026-04-11T07:02:59.2475910Z 		nfct: nfct@40005000 {
+2026-04-11T07:02:59.2476104Z 			compatible = "nordic,nrf-nfct";
+2026-04-11T07:02:59.2476322Z 			reg = < 0x40005000 0x1000 >;
+2026-04-11T07:02:59.2476521Z 			interrupts = < 0x5 0x1 >;
+2026-04-11T07:02:59.2476717Z 			status = "okay";
+2026-04-11T07:02:59.2476881Z 		};
+2026-04-11T07:02:59.2477031Z 		gpiote: gpiote@40006000 {
+2026-04-11T07:02:59.2477397Z 			compatible = "nordic,nrf-gpiote";
+2026-04-11T07:02:59.2477628Z 			reg = < 0x40006000 0x1000 >;
+2026-04-11T07:02:59.2477825Z 			interrupts = < 0x6 0x5 >;
+2026-04-11T07:02:59.2478020Z 			status = "okay";
+2026-04-11T07:02:59.2478198Z 		};
+2026-04-11T07:02:59.2478349Z 		adc: adc@40007000 {
+2026-04-11T07:02:59.2478544Z 			compatible = "nordic,nrf-saadc";
+2026-04-11T07:02:59.2478771Z 			reg = < 0x40007000 0x1000 >;
+2026-04-11T07:02:59.2478974Z 			interrupts = < 0x7 0x1 >;
+2026-04-11T07:02:59.2479163Z 			status = "okay";
+2026-04-11T07:02:59.2479344Z 			#io-channel-cells = < 0x1 >;
+2026-04-11T07:02:59.2479542Z 		};
+2026-04-11T07:02:59.2479688Z 		timer0: timer@40008000 {
+2026-04-11T07:02:59.2479897Z 			compatible = "nordic,nrf-timer";
+2026-04-11T07:02:59.2480126Z 			status = "disabled";
+2026-04-11T07:02:59.2480307Z 			reg = < 0x40008000 0x1000 >;
+2026-04-11T07:02:59.2480660Z 			cc-num = < 0x4 >;
+2026-04-11T07:02:59.2480847Z 			max-bit-width = < 0x20 >;
+2026-04-11T07:02:59.2481051Z 			interrupts = < 0x8 0x1 >;
+2026-04-11T07:02:59.2481250Z 			prescaler = < 0x0 >;
+2026-04-11T07:02:59.2481667Z 		};
+2026-04-11T07:02:59.2481833Z 		timer1: timer@40009000 {
+2026-04-11T07:02:59.2482171Z 			compatible = "nordic,nrf-timer";
+2026-04-11T07:02:59.2482618Z 			status = "disabled";
+2026-04-11T07:02:59.2482970Z 			reg = < 0x40009000 0x1000 >;
+2026-04-11T07:02:59.2483277Z 			cc-num = < 0x4 >;
+2026-04-11T07:02:59.2483559Z 			max-bit-width = < 0x20 >;
+2026-04-11T07:02:59.2483953Z 			interrupts = < 0x9 0x1 >;
+2026-04-11T07:02:59.2484270Z 			prescaler = < 0x0 >;
+2026-04-11T07:02:59.2484515Z 			phandle = < 0xa >;
+2026-04-11T07:02:59.2484806Z 		};
+2026-04-11T07:02:59.2485097Z 		timer2: timer@4000a000 {
+2026-04-11T07:02:59.2485363Z 			compatible = "nordic,nrf-timer";
+2026-04-11T07:02:59.2485711Z 			status = "disabled";
+2026-04-11T07:02:59.2486004Z 			reg = < 0x4000a000 0x1000 >;
+2026-04-11T07:02:59.2486295Z 			cc-num = < 0x4 >;
+2026-04-11T07:02:59.2486560Z 			max-bit-width = < 0x20 >;
+2026-04-11T07:02:59.2486918Z 			interrupts = < 0xa 0x1 >;
+2026-04-11T07:02:59.2487210Z 			prescaler = < 0x0 >;
+2026-04-11T07:02:59.2487469Z 		};
+2026-04-11T07:02:59.2487730Z 		rtc0: rtc@4000b000 {
+2026-04-11T07:02:59.2500786Z 			compatible = "nordic,nrf-rtc";
+2026-04-11T07:02:59.2501111Z 			reg = < 0x4000b000 0x1000 >;
+2026-04-11T07:02:59.2501601Z 			cc-num = < 0x3 >;
+2026-04-11T07:02:59.2501836Z 			interrupts = < 0xb 0x1 >;
+2026-04-11T07:02:59.2502063Z 			status = "disabled";
+2026-04-11T07:02:59.2502276Z 			clock-frequency = < 0x8000 >;
+2026-04-11T07:02:59.2502504Z 			prescaler = < 0x1 >;
+2026-04-11T07:02:59.2502699Z 		};
+2026-04-11T07:02:59.2502862Z 		temp: temp@4000c000 {
+2026-04-11T07:02:59.2503078Z 			compatible = "nordic,nrf-temp";
+2026-04-11T07:02:59.2503314Z 			reg = < 0x4000c000 0x1000 >;
+2026-04-11T07:02:59.2503539Z 			interrupts = < 0xc 0x1 >;
+2026-04-11T07:02:59.2503745Z 			status = "okay";
+2026-04-11T07:02:59.2503909Z 		};
+2026-04-11T07:02:59.2504067Z 		rng: random@4000d000 {
+2026-04-11T07:02:59.2504284Z 			compatible = "nordic,nrf-rng";
+2026-04-11T07:02:59.2504526Z 			reg = < 0x4000d000 0x1000 >;
+2026-04-11T07:02:59.2504745Z 			interrupts = < 0xd 0x1 >;
+2026-04-11T07:02:59.2504951Z 			status = "okay";
+2026-04-11T07:02:59.2505113Z 		};
+2026-04-11T07:02:59.2505269Z 		ecb: ecb@4000e000 {
+2026-04-11T07:02:59.2505470Z 			compatible = "nordic,nrf-ecb";
+2026-04-11T07:02:59.2505691Z 			reg = < 0x4000e000 0x1000 >;
+2026-04-11T07:02:59.2505900Z 			interrupts = < 0xe 0x1 >;
+2026-04-11T07:02:59.2506132Z 			status = "okay";
+2026-04-11T07:02:59.2506293Z 		};
+2026-04-11T07:02:59.2506446Z 		ccm: ccm@4000f000 {
+2026-04-11T07:02:59.2506643Z 			compatible = "nordic,nrf-ccm";
+2026-04-11T07:02:59.2506858Z 			reg = < 0x4000f000 0x1000 >;
+2026-04-11T07:02:59.2507067Z 			interrupts = < 0xf 0x1 >;
+2026-04-11T07:02:59.2507293Z 			length-field-length-8-bits;
+2026-04-11T07:02:59.2507503Z 			status = "okay";
+2026-04-11T07:02:59.2507670Z 		};
+2026-04-11T07:02:59.2507832Z 		wdt: wdt0: watchdog@40010000 {
+2026-04-11T07:02:59.2508057Z 			compatible = "nordic,nrf-wdt";
+2026-04-11T07:02:59.2508482Z 			reg = < 0x40010000 0x1000 >;
+2026-04-11T07:02:59.2508696Z 			interrupts = < 0x10 0x1 >;
+2026-04-11T07:02:59.2508902Z 			status = "okay";
+2026-04-11T07:02:59.2509067Z 		};
+2026-04-11T07:02:59.2509220Z 		rtc1: rtc@40011000 {
+2026-04-11T07:02:59.2509419Z 			compatible = "nordic,nrf-rtc";
+2026-04-11T07:02:59.2509635Z 			reg = < 0x40011000 0x1000 >;
+2026-04-11T07:02:59.2509842Z 			cc-num = < 0x4 >;
+2026-04-11T07:02:59.2510030Z 			interrupts = < 0x11 0x1 >;
+2026-04-11T07:02:59.2510235Z 			status = "disabled";
+2026-04-11T07:02:59.2510437Z 			clock-frequency = < 0x8000 >;
+2026-04-11T07:02:59.2510659Z 			prescaler = < 0x1 >;
+2026-04-11T07:02:59.2510837Z 		};
+2026-04-11T07:02:59.2510999Z 		qdec: qdec0: qdec@40012000 {
+2026-04-11T07:02:59.2511229Z 			compatible = "nordic,nrf-qdec";
+2026-04-11T07:02:59.2511723Z 			reg = < 0x40012000 0x1000 >;
+2026-04-11T07:02:59.2512037Z 			interrupts = < 0x12 0x1 >;
+2026-04-11T07:02:59.2512253Z 			status = "disabled";
+2026-04-11T07:02:59.2512436Z 		};
+2026-04-11T07:02:59.2512602Z 		comp: comparator@40013000 {
+2026-04-11T07:02:59.2512827Z 			compatible = "nordic,nrf-comp";
+2026-04-11T07:02:59.2513056Z 			reg = < 0x40013000 0x1000 >;
+2026-04-11T07:02:59.2513257Z 			interrupts = < 0x13 0x1 >;
+2026-04-11T07:02:59.2513595Z 			status = "disabled";
+2026-04-11T07:02:59.2513801Z 			#io-channel-cells = < 0x1 >;
+2026-04-11T07:02:59.2513998Z 		};
+2026-04-11T07:02:59.2514151Z 		egu0: swi0: egu@40014000 {
+2026-04-11T07:02:59.2514403Z 			compatible = "nordic,nrf-egu", "nordic,nrf-swi";
+2026-04-11T07:02:59.2514677Z 			reg = < 0x40014000 0x1000 >;
+2026-04-11T07:02:59.2514883Z 			interrupts = < 0x14 0x1 >;
+2026-04-11T07:02:59.2515086Z 			status = "okay";
+2026-04-11T07:02:59.2515246Z 		};
+2026-04-11T07:02:59.2515398Z 		egu1: swi1: egu@40015000 {
+2026-04-11T07:02:59.2515640Z 			compatible = "nordic,nrf-egu", "nordic,nrf-swi";
+2026-04-11T07:02:59.2515901Z 			reg = < 0x40015000 0x1000 >;
+2026-04-11T07:02:59.2516107Z 			interrupts = < 0x15 0x1 >;
+2026-04-11T07:02:59.2516311Z 			status = "okay";
+2026-04-11T07:02:59.2516471Z 		};
+2026-04-11T07:02:59.2516624Z 		egu2: swi2: egu@40016000 {
+2026-04-11T07:02:59.2516862Z 			compatible = "nordic,nrf-egu", "nordic,nrf-swi";
+2026-04-11T07:02:59.2517120Z 			reg = < 0x40016000 0x1000 >;
+2026-04-11T07:02:59.2517326Z 			interrupts = < 0x16 0x1 >;
+2026-04-11T07:02:59.2517526Z 			status = "okay";
+2026-04-11T07:02:59.2517693Z 		};
+2026-04-11T07:02:59.2517842Z 		egu3: swi3: egu@40017000 {
+2026-04-11T07:02:59.2518080Z 			compatible = "nordic,nrf-egu", "nordic,nrf-swi";
+2026-04-11T07:02:59.2518341Z 			reg = < 0x40017000 0x1000 >;
+2026-04-11T07:02:59.2518540Z 			interrupts = < 0x17 0x1 >;
+2026-04-11T07:02:59.2518743Z 			status = "okay";
+2026-04-11T07:02:59.2518910Z 		};
+2026-04-11T07:02:59.2519058Z 		egu4: swi4: egu@40018000 {
+2026-04-11T07:02:59.2519294Z 			compatible = "nordic,nrf-egu", "nordic,nrf-swi";
+2026-04-11T07:02:59.2519564Z 			reg = < 0x40018000 0x1000 >;
+2026-04-11T07:02:59.2519765Z 			interrupts = < 0x18 0x1 >;
+2026-04-11T07:02:59.2519971Z 			status = "okay";
+2026-04-11T07:02:59.2520135Z 		};
+2026-04-11T07:02:59.2520282Z 		egu5: swi5: egu@40019000 {
+2026-04-11T07:02:59.2520518Z 			compatible = "nordic,nrf-egu", "nordic,nrf-swi";
+2026-04-11T07:02:59.2520785Z 			reg = < 0x40019000 0x1000 >;
+2026-04-11T07:02:59.2520996Z 			interrupts = < 0x19 0x1 >;
+2026-04-11T07:02:59.2521211Z 			status = "okay";
+2026-04-11T07:02:59.2521653Z 		};
+2026-04-11T07:02:59.2521824Z 		timer3: timer@4001a000 {
+2026-04-11T07:02:59.2522051Z 			compatible = "nordic,nrf-timer";
+2026-04-11T07:02:59.2522289Z 			status = "disabled";
+2026-04-11T07:02:59.2522578Z 			reg = < 0x4001a000 0x1000 >;
+2026-04-11T07:02:59.2522776Z 			cc-num = < 0x6 >;
+2026-04-11T07:02:59.2522966Z 			max-bit-width = < 0x20 >;
+2026-04-11T07:02:59.2523180Z 			interrupts = < 0x1a 0x1 >;
+2026-04-11T07:02:59.2523394Z 			prescaler = < 0x0 >;
+2026-04-11T07:02:59.2523582Z 		};
+2026-04-11T07:02:59.2523746Z 		timer4: timer@4001b000 {
+2026-04-11T07:02:59.2523956Z 			compatible = "nordic,nrf-timer";
+2026-04-11T07:02:59.2524336Z 			status = "disabled";
+2026-04-11T07:02:59.2524531Z 			reg = < 0x4001b000 0x1000 >;
+2026-04-11T07:02:59.2524735Z 			cc-num = < 0x6 >;
+2026-04-11T07:02:59.2524927Z 			max-bit-width = < 0x20 >;
+2026-04-11T07:02:59.2525147Z 			interrupts = < 0x1b 0x1 >;
+2026-04-11T07:02:59.2525353Z 			prescaler = < 0x0 >;
+2026-04-11T07:02:59.2525531Z 		};
+2026-04-11T07:02:59.2525694Z 		pwm0: pwm@4001c000 {
+2026-04-11T07:02:59.2525900Z 			compatible = "nordic,nrf-pwm";
+2026-04-11T07:02:59.2526132Z 			reg = < 0x4001c000 0x1000 >;
+2026-04-11T07:02:59.2526347Z 			interrupts = < 0x1c 0x1 >;
+2026-04-11T07:02:59.2526556Z 			status = "disabled";
+2026-04-11T07:02:59.2526750Z 			#pwm-cells = < 0x3 >;
+2026-04-11T07:02:59.2526941Z 		};
+2026-04-11T07:02:59.2527096Z 		pdm0: pdm@4001d000 {
+2026-04-11T07:02:59.2527292Z 			compatible = "nordic,nrf-pdm";
+2026-04-11T07:02:59.2527522Z 			reg = < 0x4001d000 0x1000 >;
+2026-04-11T07:02:59.2527733Z 			interrupts = < 0x1d 0x1 >;
+2026-04-11T07:02:59.2527936Z 			status = "disabled";
+2026-04-11T07:02:59.2528119Z 		};
+2026-04-11T07:02:59.2528270Z 		acl: acl@4001e000 {
+2026-04-11T07:02:59.2528459Z 			compatible = "nordic,nrf-acl";
+2026-04-11T07:02:59.2528680Z 			reg = < 0x4001e000 0x1000 >;
+2026-04-11T07:02:59.2528883Z 			status = "okay";
+2026-04-11T07:02:59.2529161Z 		};
+2026-04-11T07:02:59.2529364Z 		flash_controller: flash-controller@4001e000 {
+2026-04-11T07:02:59.2529680Z 			compatible = "nordic,nrf52-flash-controller";
+2026-04-11T07:02:59.2529948Z 			reg = < 0x4001e000 0x1000 >;
+2026-04-11T07:02:59.2530156Z 			partial-erase;
+2026-04-11T07:02:59.2530345Z 			#address-cells = < 0x1 >;
+2026-04-11T07:02:59.2530554Z 			#size-cells = < 0x1 >;
+2026-04-11T07:02:59.2530754Z 			flash0: flash@0 {
+2026-04-11T07:02:59.2530956Z 				compatible = "soc-nv-flash";
+2026-04-11T07:02:59.2531191Z 				erase-block-size = < 0x1000 >;
+2026-04-11T07:02:59.2531770Z 				write-block-size = < 0x4 >;
+2026-04-11T07:02:59.2532005Z 				reg = < 0x0 0x100000 >;
+2026-04-11T07:02:59.2532210Z 				partitions {
+2026-04-11T07:02:59.2532413Z 					compatible = "fixed-partitions";
+2026-04-11T07:02:59.2532670Z 					#address-cells = < 0x1 >;
+2026-04-11T07:02:59.2532889Z 					#size-cells = < 0x1 >;
+2026-04-11T07:02:59.2533099Z 					sd_partition: partition@0 {
+2026-04-11T07:02:59.2533327Z 						reg = < 0x0 0x26000 >;
+2026-04-11T07:02:59.2533523Z 					};
+2026-04-11T07:02:59.2533695Z 					code_partition: partition@26000 {
+2026-04-11T07:02:59.2533936Z 						reg = < 0x26000 0xc6000 >;
+2026-04-11T07:02:59.2534138Z 					};
+2026-04-11T07:02:59.2534310Z 					storage_partition: partition@ec000 {
+2026-04-11T07:02:59.2534559Z 						reg = < 0xec000 0x8000 >;
+2026-04-11T07:02:59.2534757Z 					};
+2026-04-11T07:02:59.2534921Z 					boot_partition: partition@f4000 {
+2026-04-11T07:02:59.2535152Z 						reg = < 0xf4000 0xc000 >;
+2026-04-11T07:02:59.2535350Z 					};
+2026-04-11T07:02:59.2535488Z 				};
+2026-04-11T07:02:59.2535631Z 			};
+2026-04-11T07:02:59.2535776Z 		};
+2026-04-11T07:02:59.2535938Z 		ppi: ppi@4001f000 {
+2026-04-11T07:02:59.2536137Z 			compatible = "nordic,nrf-ppi";
+2026-04-11T07:02:59.2536365Z 			reg = < 0x4001f000 0x1000 >;
+2026-04-11T07:02:59.2536568Z 			status = "okay";
+2026-04-11T07:02:59.2536728Z 		};
+2026-04-11T07:02:59.2536876Z 		mwu: mwu@40020000 {
+2026-04-11T07:02:59.2537074Z 			compatible = "nordic,nrf-mwu";
+2026-04-11T07:02:59.2537328Z 			reg = < 0x40020000 0x1000 >;
+2026-04-11T07:02:59.2537526Z 			status = "okay";
+2026-04-11T07:02:59.2537696Z 		};
+2026-04-11T07:02:59.2537849Z 		pwm1: pwm@40021000 {
+2026-04-11T07:02:59.2538044Z 			compatible = "nordic,nrf-pwm";
+2026-04-11T07:02:59.2538267Z 			reg = < 0x40021000 0x1000 >;
+2026-04-11T07:02:59.2538473Z 			interrupts = < 0x21 0x1 >;
+2026-04-11T07:02:59.2538670Z 			status = "disabled";
+2026-04-11T07:02:59.2538870Z 			#pwm-cells = < 0x3 >;
+2026-04-11T07:02:59.2539052Z 		};
+2026-04-11T07:02:59.2539192Z 		pwm2: pwm@40022000 {
+2026-04-11T07:02:59.2539380Z 			compatible = "nordic,nrf-pwm";
+2026-04-11T07:02:59.2539594Z 			reg = < 0x40022000 0x1000 >;
+2026-04-11T07:02:59.2539797Z 			interrupts = < 0x22 0x1 >;
+2026-04-11T07:02:59.2540146Z 			status = "disabled";
+2026-04-11T07:02:59.2540336Z 			#pwm-cells = < 0x3 >;
+2026-04-11T07:02:59.2540514Z 		};
+2026-04-11T07:02:59.2540662Z 		spi2: spi@40023000 {
+2026-04-11T07:02:59.2540860Z 			compatible = "nordic,nrf-spim";
+2026-04-11T07:02:59.2541091Z 			#address-cells = < 0x1 >;
+2026-04-11T07:02:59.2541303Z 			#size-cells = < 0x0 >;
+2026-04-11T07:02:59.2541742Z 			reg = < 0x40023000 0x1000 >;
+2026-04-11T07:02:59.2541951Z 			interrupts = < 0x23 0x1 >;
+2026-04-11T07:02:59.2542169Z 			max-frequency = < 0x7a1200 >;
+2026-04-11T07:02:59.2542403Z 			easydma-maxcnt-bits = < 0x10 >;
+2026-04-11T07:02:59.2542629Z 			status = "disabled";
+2026-04-11T07:02:59.2542800Z 		};
+2026-04-11T07:02:59.2542946Z 		rtc2: rtc@40024000 {
+2026-04-11T07:02:59.2543139Z 			compatible = "nordic,nrf-rtc";
+2026-04-11T07:02:59.2543353Z 			reg = < 0x40024000 0x1000 >;
+2026-04-11T07:02:59.2543551Z 			cc-num = < 0x4 >;
+2026-04-11T07:02:59.2543737Z 			interrupts = < 0x24 0x1 >;
+2026-04-11T07:02:59.2543942Z 			status = "disabled";
+2026-04-11T07:02:59.2544139Z 			clock-frequency = < 0x8000 >;
+2026-04-11T07:02:59.2544357Z 			prescaler = < 0x1 >;
+2026-04-11T07:02:59.2544531Z 		};
+2026-04-11T07:02:59.2544678Z 		i2s0: i2s@40025000 {
+2026-04-11T07:02:59.2544993Z 			compatible = "nordic,nrf-i2s";
+2026-04-11T07:02:59.2545228Z 			#address-cells = < 0x1 >;
+2026-04-11T07:02:59.2545445Z 			#size-cells = < 0x0 >;
+2026-04-11T07:02:59.2545647Z 			reg = < 0x40025000 0x1000 >;
+2026-04-11T07:02:59.2545855Z 			interrupts = < 0x25 0x1 >;
+2026-04-11T07:02:59.2546068Z 			status = "disabled";
+2026-04-11T07:02:59.2546252Z 		};
+2026-04-11T07:02:59.2546410Z 		usbd: zephyr_udc0: usbd@40027000 {
+2026-04-11T07:02:59.2546656Z 			compatible = "nordic,nrf-usbd";
+2026-04-11T07:02:59.2546884Z 			reg = < 0x40027000 0x1000 >;
+2026-04-11T07:02:59.2547093Z 			interrupts = < 0x27 0x1 >;
+2026-04-11T07:02:59.2547309Z 			num-bidir-endpoints = < 0x1 >;
+2026-04-11T07:02:59.2547545Z 			num-in-endpoints = < 0x7 >;
+2026-04-11T07:02:59.2547767Z 			num-out-endpoints = < 0x7 >;
+2026-04-11T07:02:59.2547989Z 			num-isoin-endpoints = < 0x1 >;
+2026-04-11T07:02:59.2548221Z 			num-isoout-endpoints = < 0x1 >;
+2026-04-11T07:02:59.2548441Z 			status = "okay";
+2026-04-11T07:02:59.2548694Z 			snippet_studio_rpc_usb_uart: snippet_studio_rpc_usb_uart {
+2026-04-11T07:02:59.2549030Z 				compatible = "zephyr,cdc-acm-uart";
+2026-04-11T07:02:59.2549262Z 			};
+2026-04-11T07:02:59.2549400Z 		};
+2026-04-11T07:02:59.2549551Z 		uart1: uart@40028000 {
+2026-04-11T07:02:59.2549762Z 			compatible = "nordic,nrf-uarte";
+2026-04-11T07:02:59.2549986Z 			reg = < 0x40028000 0x1000 >;
+2026-04-11T07:02:59.2550194Z 			interrupts = < 0x28 0x1 >;
+2026-04-11T07:02:59.2550400Z 			status = "disabled";
+2026-04-11T07:02:59.2550574Z 		};
+2026-04-11T07:02:59.2550726Z 		qspi: qspi@40029000 {
+2026-04-11T07:02:59.2550925Z 			compatible = "nordic,nrf-qspi";
+2026-04-11T07:02:59.2551153Z 			#address-cells = < 0x1 >;
+2026-04-11T07:02:59.2551575Z 			#size-cells = < 0x0 >;
+2026-04-11T07:02:59.2551836Z 			reg = < 0x40029000 0x1000 >, < 0x12000000 0x8000000 >;
+2026-04-11T07:02:59.2552134Z 			reg-names = "qspi", "qspi_mm";
+2026-04-11T07:02:59.2552357Z 			interrupts = < 0x29 0x1 >;
+2026-04-11T07:02:59.2552566Z 			status = "disabled";
+2026-04-11T07:02:59.2552747Z 		};
+2026-04-11T07:02:59.2552899Z 		pwm3: pwm@4002d000 {
+2026-04-11T07:02:59.2553102Z 			compatible = "nordic,nrf-pwm";
+2026-04-11T07:02:59.2553330Z 			reg = < 0x4002d000 0x1000 >;
+2026-04-11T07:02:59.2553540Z 			interrupts = < 0x2d 0x1 >;
+2026-04-11T07:02:59.2553747Z 			status = "disabled";
+2026-04-11T07:02:59.2553940Z 			#pwm-cells = < 0x3 >;
+2026-04-11T07:02:59.2554124Z 		};
+2026-04-11T07:02:59.2554278Z 		spi3: spi@4002f000 {
+2026-04-11T07:02:59.2554482Z 			compatible = "nordic,nrf-spim";
+2026-04-11T07:02:59.2554723Z 			#address-cells = < 0x1 >;
+2026-04-11T07:02:59.2554934Z 			#size-cells = < 0x0 >;
+2026-04-11T07:02:59.2555135Z 			reg = < 0x4002f000 0x1000 >;
+2026-04-11T07:02:59.2555345Z 			interrupts = < 0x2f 0x1 >;
+2026-04-11T07:02:59.2555563Z 			max-frequency = < 0x1e84800 >;
+2026-04-11T07:02:59.2555971Z 			easydma-maxcnt-bits = < 0x10 >;
+2026-04-11T07:02:59.2556204Z 			rx-delay-supported;
+2026-04-11T07:02:59.2556392Z 			rx-delay = < 0x2 >;
+2026-04-11T07:02:59.2556571Z 			status = "okay";
+2026-04-11T07:02:59.2556766Z 			pinctrl-0 = < &spi3_default >;
+2026-04-11T07:02:59.2556989Z 			pinctrl-1 = < &spi3_sleep >;
+2026-04-11T07:02:59.2557220Z 			pinctrl-names = "default", "sleep";
+2026-04-11T07:02:59.2557462Z 			led_strip: ws2812@0 {
+2026-04-11T07:02:59.2557677Z 				compatible = "worldsemi,ws2812-spi";
+2026-04-11T07:02:59.2557920Z 				reg = < 0x0 >;
+2026-04-11T07:02:59.2558111Z 				spi-max-frequency = < 0x3d0900 >;
+2026-04-11T07:02:59.2558346Z 				chain-length = < 0x24 >;
+2026-04-11T07:02:59.2558563Z 				spi-one-frame = < 0x70 >;
+2026-04-11T07:02:59.2558778Z 				spi-zero-frame = < 0x40 >;
+2026-04-11T07:02:59.2558994Z 				color-mapping = < 0x2 0x1 0x3 >;
+2026-04-11T07:02:59.2559208Z 			};
+2026-04-11T07:02:59.2559352Z 		};
+2026-04-11T07:02:59.2559499Z 		gpio0: gpio@50000000 {
+2026-04-11T07:02:59.2559719Z 			compatible = "nordic,nrf-gpio";
+2026-04-11T07:02:59.2559942Z 			gpio-controller;
+2026-04-11T07:02:59.2560142Z 			reg = < 0x50000000 0x200 0x50000500 0x300 >;
+2026-04-11T07:02:59.2560384Z 			#gpio-cells = < 0x2 >;
+2026-04-11T07:02:59.2560689Z 			status = "okay";
+2026-04-11T07:02:59.2560871Z 			port = < 0x0 >;
+2026-04-11T07:02:59.2561047Z 			phandle = < 0xb >;
+2026-04-11T07:02:59.2561223Z 		};
+2026-04-11T07:02:59.2561560Z 		gpio1: gpio@50000300 {
+2026-04-11T07:02:59.2561771Z 			compatible = "nordic,nrf-gpio";
+2026-04-11T07:02:59.2561997Z 			gpio-controller;
+2026-04-11T07:02:59.2562190Z 			reg = < 0x50000300 0x200 0x50000800 0x300 >;
+2026-04-11T07:02:59.2562432Z 			#gpio-cells = < 0x2 >;
+2026-04-11T07:02:59.2562626Z 			ngpios = < 0x10 >;
+2026-04-11T07:02:59.2562809Z 			status = "okay";
+2026-04-11T07:02:59.2562974Z 			port = < 0x1 >;
+2026-04-11T07:02:59.2563150Z 			phandle = < 0xc >;
+2026-04-11T07:02:59.2563322Z 		};
+2026-04-11T07:02:59.2563478Z 		cryptocell: crypto@5002a000 {
+2026-04-11T07:02:59.2563771Z 			compatible = "nordic,cryptocell", "arm,cryptocell-310";
+2026-04-11T07:02:59.2564102Z 			reg = < 0x5002a000 0x1000 >, < 0x5002b000 0x1000 >;
+2026-04-11T07:02:59.2564365Z 			reg-names = "wrapper", "core";
+2026-04-11T07:02:59.2564596Z 			interrupts = < 0x2a 0x1 >;
+2026-04-11T07:02:59.2564808Z 			status = "disabled";
+2026-04-11T07:02:59.2564988Z 		};
+2026-04-11T07:02:59.2565125Z 	};
+2026-04-11T07:02:59.2565291Z 	pinctrl: pin-controller {
+2026-04-11T07:02:59.2565513Z 		compatible = "nordic,nrf-pinctrl";
+2026-04-11T07:02:59.2565754Z 		uart0_default: uart0_default {
+2026-04-11T07:02:59.2565968Z 			phandle = < 0x2 >;
+2026-04-11T07:02:59.2566144Z 			group1 {
+2026-04-11T07:02:59.2566301Z 				psels = < 0x10008 >;
+2026-04-11T07:02:59.2566491Z 				bias-pull-up;
+2026-04-11T07:02:59.2566660Z 			};
+2026-04-11T07:02:59.2567243Z 			group2 {
+2026-04-11T07:02:59.2567486Z 				psels = < 0x6 >;
+2026-04-11T07:02:59.2567735Z 			};
+2026-04-11T07:02:59.2567875Z 		};
+2026-04-11T07:02:59.2568035Z 		uart0_sleep: uart0_sleep {
+2026-04-11T07:02:59.2568246Z 			phandle = < 0x3 >;
+2026-04-11T07:02:59.2568416Z 			group1 {
+2026-04-11T07:02:59.2568584Z 				psels = < 0x10008 >, < 0x6 >;
+2026-04-11T07:02:59.2568801Z 				low-power-enable;
+2026-04-11T07:02:59.2568973Z 			};
+2026-04-11T07:02:59.2569114Z 		};
+2026-04-11T07:02:59.2569270Z 		i2c0_default: i2c0_default {
+2026-04-11T07:02:59.2569473Z 			phandle = < 0x4 >;
+2026-04-11T07:02:59.2569644Z 			group1 {
+2026-04-11T07:02:59.2569807Z 				psels = < 0xc0011 >, < 0xb0014 >;
+2026-04-11T07:02:59.2570018Z 			};
+2026-04-11T07:02:59.2570160Z 		};
+2026-04-11T07:02:59.2570313Z 		i2c0_sleep: i2c0_sleep {
+2026-04-11T07:02:59.2570503Z 			phandle = < 0x5 >;
+2026-04-11T07:02:59.2570675Z 			group1 {
+2026-04-11T07:02:59.2570835Z 				psels = < 0xc0011 >, < 0xb0014 >;
+2026-04-11T07:02:59.2571053Z 				low-power-enable;
+2026-04-11T07:02:59.2571227Z 			};
+2026-04-11T07:02:59.2571577Z 		};
+2026-04-11T07:02:59.2571814Z 		spi1_default: spi1_default {
+2026-04-11T07:02:59.2572025Z 			phandle = < 0x6 >;
+2026-04-11T07:02:59.2572328Z 			group1 {
+2026-04-11T07:02:59.2572511Z 				psels = < 0x4002d >, < 0x5000a >, < 0x6002b >;
+2026-04-11T07:02:59.2572754Z 			};
+2026-04-11T07:02:59.2572900Z 		};
+2026-04-11T07:02:59.2573056Z 		spi1_sleep: spi1_sleep {
+2026-04-11T07:02:59.2573252Z 			phandle = < 0x7 >;
+2026-04-11T07:02:59.2573425Z 			group1 {
+2026-04-11T07:02:59.2573607Z 				psels = < 0x4002d >, < 0x5000a >, < 0x6002b >;
+2026-04-11T07:02:59.2573853Z 				low-power-enable;
+2026-04-11T07:02:59.2574028Z 			};
+2026-04-11T07:02:59.2574170Z 		};
+2026-04-11T07:02:59.2574320Z 		spi3_default: spi3_default {
+2026-04-11T07:02:59.2574529Z 			phandle = < 0x8 >;
+2026-04-11T07:02:59.2574704Z 			group1 {
+2026-04-11T07:02:59.2574861Z 				psels = < 0x50006 >;
+2026-04-11T07:02:59.2575047Z 			};
+2026-04-11T07:02:59.2575190Z 		};
+2026-04-11T07:02:59.2575340Z 		spi3_sleep: spi3_sleep {
+2026-04-11T07:02:59.2575541Z 			phandle = < 0x9 >;
+2026-04-11T07:02:59.2575721Z 			group1 {
+2026-04-11T07:02:59.2575877Z 				psels = < 0x50006 >;
+2026-04-11T07:02:59.2576075Z 				low-power-enable;
+2026-04-11T07:02:59.2576254Z 			};
+2026-04-11T07:02:59.2576392Z 		};
+2026-04-11T07:02:59.2576536Z 	};
+2026-04-11T07:02:59.2576699Z 	rng_hci: entropy_bt_hci {
+2026-04-11T07:02:59.2577029Z 		compatible = "zephyr,bt-hci-entropy";
+2026-04-11T07:02:59.2577283Z 		status = "okay";
+2026-04-11T07:02:59.2577456Z 	};
+2026-04-11T07:02:59.2577607Z 	sw_pwm: sw-pwm {
+2026-04-11T07:02:59.2577804Z 		compatible = "nordic,nrf-sw-pwm";
+2026-04-11T07:02:59.2578039Z 		status = "disabled";
+2026-04-11T07:02:59.2578232Z 		generator = < &timer1 >;
+2026-04-11T07:02:59.2578436Z 		clock-prescaler = < 0x0 >;
+2026-04-11T07:02:59.2578651Z 		#pwm-cells = < 0x3 >;
+2026-04-11T07:02:59.2578832Z 	};
+2026-04-11T07:02:59.2578968Z 	cpus {
+2026-04-11T07:02:59.2579132Z 		#address-cells = < 0x1 >;
+2026-04-11T07:02:59.2579340Z 		#size-cells = < 0x0 >;
+2026-04-11T07:02:59.2579523Z 		cpu@0 {
+2026-04-11T07:02:59.2579685Z 			device_type = "cpu";
+2026-04-11T07:02:59.2579894Z 			compatible = "arm,cortex-m4f";
+2026-04-11T07:02:59.2580114Z 			reg = < 0x0 >;
+2026-04-11T07:02:59.2580297Z 			#address-cells = < 0x1 >;
+2026-04-11T07:02:59.2580529Z 			#size-cells = < 0x1 >;
+2026-04-11T07:02:59.2580720Z 			itm: itm@e0000000 {
+2026-04-11T07:02:59.2580922Z 				compatible = "arm,armv7m-itm";
+2026-04-11T07:02:59.2581157Z 				reg = < 0xe0000000 0x1000 >;
+2026-04-11T07:02:59.2581614Z 				swo-ref-frequency = < 0x1e84800 >;
+2026-04-11T07:02:59.2581887Z 			};
+2026-04-11T07:02:59.2582034Z 		};
+2026-04-11T07:02:59.2582171Z 	};
+2026-04-11T07:02:59.2582339Z 	pro_micro: pro_micro_d: connector {
+2026-04-11T07:02:59.2582588Z 		compatible = "arduino-pro-micro";
+2026-04-11T07:02:59.2583369Z 		#gpio-cells = < 0x2 >;
+2026-04-11T07:02:59.2583712Z 		gpio-map-mask = < 0xffffffff 0xffffffc0 >;
+2026-04-11T07:02:59.2584009Z 		gpio-map-pass-thru = < 0x0 0x3f >;
+2026-04-11T07:02:59.2585457Z 		gpio-map = < 0x0 0x0 &gpio0 0x8 0x0 >, < 0x1 0x0 &gpio0 0x6 0x0 >, < 0x2 0x0 &gpio0 0x11 0x0 >, < 0x3 0x0 &gpio0 0x14 0x0 >, < 0x4 0x0 &gpio0 0x16 0x0 >, < 0x5 0x0 &gpio0 0x18 0x0 >, < 0x6 0x0 &gpio1 0x0 0x0 >, < 0x7 0x0 &gpio0 0xb 0x0 >, < 0x8 0x0 &gpio1 0x4 0x0 >, < 0x9 0x0 &gpio1 0x6 0x0 >, < 0xa 0x0 &gpio0 0x9 0x0 >, < 0x10 0x0 &gpio0 0xa 0x0 >, < 0xe 0x0 &gpio1 0xb 0x0 >, < 0xf 0x0 &gpio1 0xd 0x0 >, < 0x12 0x0 &gpio1 0xf 0x0 >, < 0x13 0x0 &gpio0 0x2 0x0 >, < 0x14 0x0 &gpio0 0x1d 0x0 >, < 0x15 0x0 &gpio0 0x1f 0x0 >;
+2026-04-11T07:02:59.2586904Z 		phandle = < 0xf >;
+2026-04-11T07:02:59.2587082Z 	};
+2026-04-11T07:02:59.2587241Z 	pro_micro_a: connector_a {
+2026-04-11T07:02:59.2587468Z 		compatible = "arduino-pro-micro";
+2026-04-11T07:02:59.2587703Z 		#gpio-cells = < 0x2 >;
+2026-04-11T07:02:59.2587923Z 		gpio-map-mask = < 0xffffffff 0xffffffc0 >;
+2026-04-11T07:02:59.2588186Z 		gpio-map-pass-thru = < 0x0 0x3f >;
+2026-04-11T07:02:59.2588981Z 		gpio-map = < 0x0 0x0 &gpio1 0xf 0x0 >, < 0x1 0x0 &gpio0 0x2 0x0 >, < 0x2 0x0 &gpio0 0x1d 0x0 >, < 0x3 0x0 &gpio0 0x1f 0x0 >, < 0x6 0x0 &gpio0 0x16 0x0 >, < 0x7 0x0 &gpio1 0x0 0x0 >, < 0x8 0x0 &gpio1 0x4 0x0 >, < 0x9 0x0 &gpio1 0x6 0x0 >, < 0xa 0x0 &gpio0 0x9 0x0 >;
+2026-04-11T07:02:59.2589891Z 	};
+2026-04-11T07:02:59.2590039Z 	leds {
+2026-04-11T07:02:59.2590206Z 		compatible = "gpio-leds";
+2026-04-11T07:02:59.2590410Z 		blue_led: led_0 {
+2026-04-11T07:02:59.2590607Z 			gpios = < &gpio0 0xf 0x0 >;
+2026-04-11T07:02:59.2590810Z 		};
+2026-04-11T07:02:59.2590957Z 	};
+2026-04-11T07:02:59.2591101Z 	EXT_POWER {
+2026-04-11T07:02:59.2591297Z 		compatible = "zmk,ext-power-generic";
+2026-04-11T07:02:59.2591922Z 		control-gpios = < &gpio0 0xd 0x0 >;
+2026-04-11T07:02:59.2592169Z 		init-delay-ms = < 0x32 >;
+2026-04-11T07:02:59.2592367Z 	};
+2026-04-11T07:02:59.2592514Z 	vbatt: vbatt {
+2026-04-11T07:02:59.2592704Z 		compatible = "zmk,battery-nrf-vddh";
+2026-04-11T07:02:59.2592939Z 	};
+2026-04-11T07:02:59.2593112Z 	key_physical_attrs: key_physical_attrs {
+2026-04-11T07:02:59.2593379Z 		compatible = "zmk,key-physical-attrs";
+2026-04-11T07:02:59.2593629Z 		#key-cells = < 0x7 >;
+2026-04-11T07:02:59.2593820Z 		phandle = < 0xd >;
+2026-04-11T07:02:59.2593998Z 	};
+2026-04-11T07:02:59.2594210Z 	josefadamcik_sofle_layout: josefadamcik_sofle_layout {
+2026-04-11T07:02:59.2594526Z 		compatible = "zmk,physical-layout";
+2026-04-11T07:02:59.2594764Z 		display-name = "Sofle";
+2026-04-11T07:02:59.2605080Z 		keys = < &key_physical_attrs 0x64 0x64 0x0 0x25 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x64 0x25 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0xc8 0xc 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x12c 0x0 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x190 0xc 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x1f4 0x18 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x384 0x18 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x3e8 0xc 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x44c 0x0 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x4b0 0xc 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x514 0x25 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x578 0x25 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x0 0x89 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x64 0x89 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0xc8 0x70 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x12c 0x64 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x190 0x70 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x1f4 0x7c 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x384 0x7c 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x3e8 0x70 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x44c 0x64 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x4b0 0x70 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x514 0x89 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x578 0x89 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x0 0xed 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x64 0xed 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0xc8 0xd4 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x12c 0xc8 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x190 0xd4 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x1f4 0xe0 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x384 0xe0 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x3e8 0xd4 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x44c 0xc8 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x4b0 0xd4 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x514 0xed 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x578 0xed 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x0 0x151 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x64 0x151 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0xc8 0x138 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x12c 0x12c 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x190 0x138 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x1f4 0x144 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x258 0x112 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x320 0x112 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x384 0x144 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x3e8 0x138 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x44c 0x12c 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x4b0 0x138 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x514 0x151 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x578 0x151 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0xaf 0x1b5 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x113 0x19c 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x177 0x19c 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x1ea 0x19c 0x4b0 0x1ea 0x19c >, < &key_physical_attrs 0x64 0x96 0x258 0x17f 0x960 0x258 0x1b1 >, < &key_physical_attrs 0x64 0x96 0x320 0x17f 0xfffff6a0 0x384 0x1b1 >, < &key_physical_attrs 0x64 0x64 0x38e 0x19c 0xfffffb50 0x3f2 0x19c >, < &key_physical_attrs 0x64 0x64 0x401 0x19c 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x465 0x19c 0x0 0x0 0x0 >, < &key_physical_attrs 0x64 0x64 0x4c9 0x1b5 0x0 0x0 0x0 >;
+2026-04-11T07:02:59.2615552Z 		transform = < &default_transform >;
+2026-04-11T07:02:59.2615784Z 	};
+2026-04-11T07:02:59.2615965Z 	default_transform: keymap_transform_0 {
+2026-04-11T07:02:59.2616230Z 		compatible = "zmk,matrix-transform";
+2026-04-11T07:02:59.2616473Z 		columns = < 0x10 >;
+2026-04-11T07:02:59.2616658Z 		rows = < 0x4 >;
+2026-04-11T07:02:59.2617798Z 		map = < 0x0 0x1 0x2 0x3 0x4 0x5 0x6 0x7 0x8 0x9 0xa 0xb 0x100 0x101 0x102 0x103 0x104 0x105 0x106 0x107 0x108 0x109 0x10a 0x10b 0x200 0x201 0x202 0x203 0x204 0x205 0x206 0x207 0x208 0x209 0x20a 0x20b 0x300 0x301 0x302 0x303 0x304 0x305 0x405 0x406 0x306 0x307 0x308 0x309 0x30a 0x30b 0x400 0x401 0x402 0x403 0x404 0x407 0x408 0x409 0x40a 0x40b >;
+2026-04-11T07:02:59.2618873Z 		phandle = < 0xe >;
+2026-04-11T07:02:59.2619051Z 	};
+2026-04-11T07:02:59.2619197Z 	kscan0: kscan {
+2026-04-11T07:02:59.2619403Z 		compatible = "zmk,kscan-gpio-matrix";
+2026-04-11T07:02:59.2619651Z 		wakeup-source;
+2026-04-11T07:02:59.2619844Z 		diode-direction = "col2row";
+2026-04-11T07:02:59.2620316Z 		row-gpios = < &pro_micro 0x5 0x20 >, < &pro_micro 0x6 0x20 >, < &pro_micro 0x7 0x20 >, < &pro_micro 0x8 0x20 >, < &pro_micro 0x9 0x20 >;
+2026-04-11T07:02:59.2621114Z 		col-gpios = < &pro_micro 0x13 0x0 >, < &pro_micro 0x12 0x0 >, < &pro_micro 0xf 0x0 >, < &pro_micro 0xe 0x0 >, < &pro_micro 0x10 0x0 >, < &pro_micro 0xa 0x0 >;
+2026-04-11T07:02:59.2621906Z 	};
+2026-04-11T07:02:59.2622073Z 	left_encoder: encoder_left {
+2026-04-11T07:02:59.2622301Z 		compatible = "alps,ec11";
+2026-04-11T07:02:59.2622524Z 		a-gpios = < &pro_micro 0x15 0x10 >;
+2026-04-11T07:02:59.2622766Z 		b-gpios = < &pro_micro 0x14 0x10 >;
+2026-04-11T07:02:59.2622991Z 		steps = < 0x50 >;
+2026-04-11T07:02:59.2623173Z 		status = "okay";
+2026-04-11T07:02:59.2623360Z 		phandle = < 0x10 >;
+2026-04-11T07:02:59.2623535Z 	};
+2026-04-11T07:02:59.2623698Z 	right_encoder: encoder_right {
+2026-04-11T07:02:59.2623929Z 		compatible = "alps,ec11";
+2026-04-11T07:02:59.2624145Z 		a-gpios = < &pro_micro 0x14 0x10 >;
+2026-04-11T07:02:59.2624380Z 		b-gpios = < &pro_micro 0x15 0x10 >;
+2026-04-11T07:02:59.2624599Z 		steps = < 0x50 >;
+2026-04-11T07:02:59.2624774Z 		status = "disabled";
+2026-04-11T07:02:59.2624966Z 		phandle = < 0x11 >;
+2026-04-11T07:02:59.2625141Z 	};
+2026-04-11T07:02:59.2625287Z 	sensors: sensors {
+2026-04-11T07:02:59.2625484Z 		compatible = "zmk,keymap-sensors";
+2026-04-11T07:02:59.2625748Z 		sensors = < &left_encoder &right_encoder >;
+2026-04-11T07:02:59.2626014Z 		triggers-per-rotation = < 0x14 >;
+2026-04-11T07:02:59.2626240Z 	};
+2026-04-11T07:02:59.2626387Z 	behaviors {
+2026-04-11T07:02:59.2626552Z 		kp: key_press {
+2026-04-11T07:02:59.2626759Z 			compatible = "zmk,behavior-key-press";
+2026-04-11T07:02:59.2627017Z 			#binding-cells = < 0x1 >;
+2026-04-11T07:02:59.2627239Z 			display-name = "Key Press";
+2026-04-11T07:02:59.2627455Z 			phandle = < 0x12 >;
+2026-04-11T07:02:59.2627632Z 		};
+2026-04-11T07:02:59.2627788Z 		kt: key_toggle {
+2026-04-11T07:02:59.2627989Z 			compatible = "zmk,behavior-key-toggle";
+2026-04-11T07:02:59.2628249Z 			#binding-cells = < 0x1 >;
+2026-04-11T07:02:59.2628470Z 			display-name = "Key Toggle";
+2026-04-11T07:02:59.2628676Z 		};
+2026-04-11T07:02:59.2628833Z 		trans: transparent {
+2026-04-11T07:02:59.2629054Z 			compatible = "zmk,behavior-transparent";
+2026-04-11T07:02:59.2629310Z 			#binding-cells = < 0x0 >;
+2026-04-11T07:02:59.2629664Z 			display-name = "Transparent";
+2026-04-11T07:02:59.2629885Z 			phandle = < 0x1b >;
+2026-04-11T07:02:59.2630054Z 		};
+2026-04-11T07:02:59.2630207Z 		none: none {
+2026-04-11T07:02:59.2630396Z 			compatible = "zmk,behavior-none";
+2026-04-11T07:02:59.2630633Z 			#binding-cells = < 0x0 >;
+2026-04-11T07:02:59.2630844Z 			display-name = "None";
+2026-04-11T07:02:59.2631039Z 		};
+2026-04-11T07:02:59.2631184Z 		mt: mod_tap {
+2026-04-11T07:02:59.2631651Z 			compatible = "zmk,behavior-hold-tap";
+2026-04-11T07:02:59.2631922Z 			#binding-cells = < 0x2 >;
+2026-04-11T07:02:59.2632133Z 			flavor = "hold-preferred";
+2026-04-11T07:02:59.2632363Z 			tapping-term-ms = < 0xc8 >;
+2026-04-11T07:02:59.2632586Z 			bindings = < &kp >, < &kp >;
+2026-04-11T07:02:59.2632800Z 			display-name = "Mod-Tap";
+2026-04-11T07:02:59.2633000Z 		};
+2026-04-11T07:02:59.2633150Z 		lt: layer_tap {
+2026-04-11T07:02:59.2633345Z 			compatible = "zmk,behavior-hold-tap";
+2026-04-11T07:02:59.2633589Z 			#binding-cells = < 0x2 >;
+2026-04-11T07:02:59.2633807Z 			flavor = "tap-preferred";
+2026-04-11T07:02:59.2634027Z 			tapping-term-ms = < 0xc8 >;
+2026-04-11T07:02:59.2634238Z 			bindings = < &mo >, < &kp >;
+2026-04-11T07:02:59.2634459Z 			display-name = "Layer-Tap";
+2026-04-11T07:02:59.2634666Z 		};
+2026-04-11T07:02:59.2634948Z 		gresc: grave_escape {
+2026-04-11T07:02:59.2635176Z 			compatible = "zmk,behavior-mod-morph";
+2026-04-11T07:02:59.2635434Z 			#binding-cells = < 0x0 >;
+2026-04-11T07:02:59.2635656Z 			bindings = < &kp 0x70029 >, < &kp 0x70035 >;
+2026-04-11T07:02:59.2635907Z 			mods = < 0xaa >;
+2026-04-11T07:02:59.2636096Z 			display-name = "Grave/Escape";
+2026-04-11T07:02:59.2636305Z 		};
+2026-04-11T07:02:59.2636454Z 		sk: sticky_key {
+2026-04-11T07:02:59.2636658Z 			compatible = "zmk,behavior-sticky-key";
+2026-04-11T07:02:59.2636907Z 			#binding-cells = < 0x1 >;
+2026-04-11T07:02:59.2637120Z 			release-after-ms = < 0x3e8 >;
+2026-04-11T07:02:59.2637336Z 			bindings = < &kp >;
+2026-04-11T07:02:59.2637526Z 			ignore-modifiers;
+2026-04-11T07:02:59.2637719Z 			display-name = "Sticky Key";
+2026-04-11T07:02:59.2637924Z 		};
+2026-04-11T07:02:59.2638073Z 		sl: sticky_layer {
+2026-04-11T07:02:59.2638274Z 			compatible = "zmk,behavior-sticky-key";
+2026-04-11T07:02:59.2638532Z 			#binding-cells = < 0x1 >;
+2026-04-11T07:02:59.2638750Z 			release-after-ms = < 0x3e8 >;
+2026-04-11T07:02:59.2638964Z 			bindings = < &mo >;
+2026-04-11T07:02:59.2639151Z 			quick-release;
+2026-04-11T07:02:59.2639346Z 			display-name = "Sticky Layer";
+2026-04-11T07:02:59.2639557Z 		};
+2026-04-11T07:02:59.2639714Z 		mo: momentary_layer {
+2026-04-11T07:02:59.2639951Z 			compatible = "zmk,behavior-momentary-layer";
+2026-04-11T07:02:59.2640223Z 			#binding-cells = < 0x1 >;
+2026-04-11T07:02:59.2640447Z 			display-name = "Momentary Layer";
+2026-04-11T07:02:59.2640682Z 			phandle = < 0x13 >;
+2026-04-11T07:02:59.2640855Z 		};
+2026-04-11T07:02:59.2641010Z 		tog: toggle_layer {
+2026-04-11T07:02:59.2641232Z 			compatible = "zmk,behavior-toggle-layer";
+2026-04-11T07:02:59.2641754Z 			#binding-cells = < 0x1 >;
+2026-04-11T07:02:59.2641986Z 			display-name = "Toggle Layer";
+2026-04-11T07:02:59.2642200Z 		};
+2026-04-11T07:02:59.2642344Z 		to: to_layer {
+2026-04-11T07:02:59.2642617Z 			compatible = "zmk,behavior-to-layer";
+2026-04-11T07:02:59.2642945Z 			#binding-cells = < 0x1 >;
+2026-04-11T07:02:59.2643157Z 			display-name = "To Layer";
+2026-04-11T07:02:59.2643352Z 		};
+2026-04-11T07:02:59.2643506Z 		sys_reset: sysreset {
+2026-04-11T07:02:59.2643730Z 			compatible = "zmk,behavior-reset";
+2026-04-11T07:02:59.2643967Z 			#binding-cells = < 0x0 >;
+2026-04-11T07:02:59.2644181Z 			display-name = "Reset";
+2026-04-11T07:02:59.2644377Z 		};
+2026-04-11T07:02:59.2644533Z 		bootloader: bootload {
+2026-04-11T07:02:59.2644751Z 			compatible = "zmk,behavior-reset";
+2026-04-11T07:02:59.2645096Z 			type = < 0x57 >;
+2026-04-11T07:02:59.2645285Z 			#binding-cells = < 0x0 >;
+2026-04-11T07:02:59.2645510Z 			display-name = "Bootloader";
+2026-04-11T07:02:59.2645720Z 		};
+2026-04-11T07:02:59.2645888Z 		inc_dec_cp: inc_dec_kp: enc_key_press {
+2026-04-11T07:02:59.2646360Z 			compatible = "zmk,behavior-sensor-rotate-var";
+2026-04-11T07:02:59.2646793Z 			#sensor-binding-cells = < 0x2 >;
+2026-04-11T07:02:59.2647191Z 			bindings = < &kp >, < &kp >;
+2026-04-11T07:02:59.2647557Z 			phandle = < 0x1a >;
+2026-04-11T07:02:59.2647857Z 		};
+2026-04-11T07:02:59.2648101Z 		rgb_ug: rgb_ug {
+2026-04-11T07:02:59.2648461Z 			compatible = "zmk,behavior-rgb-underglow";
+2026-04-11T07:02:59.2648925Z 			#binding-cells = < 0x2 >;
+2026-04-11T07:02:59.2649271Z 			display-name = "Underglow";
+2026-04-11T07:02:59.2649589Z 		};
+2026-04-11T07:02:59.2649833Z 		bt: bluetooth {
+2026-04-11T07:02:59.2650156Z 			compatible = "zmk,behavior-bluetooth";
+2026-04-11T07:02:59.2650576Z 			#binding-cells = < 0x2 >;
+2026-04-11T07:02:59.2650932Z 			display-name = "Bluetooth";
+2026-04-11T07:02:59.2651254Z 		};
+2026-04-11T07:02:59.2651699Z 		ext_power: extpower {
+2026-04-11T07:02:59.2652065Z 			compatible = "zmk,behavior-ext-power";
+2026-04-11T07:02:59.2652496Z 			#binding-cells = < 0x1 >;
+2026-04-11T07:02:59.2652869Z 			display-name = "External Power";
+2026-04-11T07:02:59.2653240Z 		};
+2026-04-11T07:02:59.2653488Z 		out: outputs {
+2026-04-11T07:02:59.2653802Z 			compatible = "zmk,behavior-outputs";
+2026-04-11T07:02:59.2654379Z 			#binding-cells = < 0x1 >;
+2026-04-11T07:02:59.2654770Z 			display-name = "Output Selection";
+2026-04-11T07:02:59.2655136Z 		};
+2026-04-11T07:02:59.2655403Z 		caps_word: caps_word {
+2026-04-11T07:02:59.2655811Z 			compatible = "zmk,behavior-caps-word";
+2026-04-11T07:02:59.2656258Z 			#binding-cells = < 0x0 >;
+2026-04-11T07:02:59.2656635Z 			continue-list = < 0x207002d 0x7002a 0x7004c >;
+2026-04-11T07:02:59.2657140Z 			display-name = "Caps Word";
+2026-04-11T07:02:59.2657481Z 		};
+2026-04-11T07:02:59.2657740Z 		key_repeat: key_repeat {
+2026-04-11T07:02:59.2658126Z 			compatible = "zmk,behavior-key-repeat";
+2026-04-11T07:02:59.2658565Z 			#binding-cells = < 0x0 >;
+2026-04-11T07:02:59.2658916Z 			usage-pages = < 0x7 >;
+2026-04-11T07:02:59.2659268Z 			display-name = "Key Repeat";
+2026-04-11T07:02:59.2659626Z 		};
+2026-04-11T07:02:59.2659861Z 		bl: bcklight {
+2026-04-11T07:02:59.2660187Z 			compatible = "zmk,behavior-backlight";
+2026-04-11T07:02:59.2660610Z 			#binding-cells = < 0x2 >;
+2026-04-11T07:02:59.2660970Z 			display-name = "Backlight";
+2026-04-11T07:02:59.2661306Z 		};
+2026-04-11T07:02:59.2661744Z 		macro_tap: macro_tap {
+2026-04-11T07:02:59.2662130Z 			compatible = "zmk,macro-control-mode-tap";
+2026-04-11T07:02:59.2662583Z 			#binding-cells = < 0x0 >;
+2026-04-11T07:02:59.2662917Z 			phandle = < 0x15 >;
+2026-04-11T07:02:59.2663201Z 		};
+2026-04-11T07:02:59.2663462Z 		macro_press: macro_press {
+2026-04-11T07:02:59.2663760Z 			compatible = "zmk,macro-control-mode-press";
+2026-04-11T07:02:59.2664049Z 			#binding-cells = < 0x0 >;
+2026-04-11T07:02:59.2664252Z 			phandle = < 0x14 >;
+2026-04-11T07:02:59.2664434Z 		};
+2026-04-11T07:02:59.2664598Z 		macro_release: macro_release {
+2026-04-11T07:02:59.2664866Z 			compatible = "zmk,macro-control-mode-release";
+2026-04-11T07:02:59.2665154Z 			#binding-cells = < 0x0 >;
+2026-04-11T07:02:59.2665361Z 			phandle = < 0x16 >;
+2026-04-11T07:02:59.2665532Z 		};
+2026-04-11T07:02:59.2665698Z 		macro_tap_time: macro_tap_time {
+2026-04-11T07:02:59.2665971Z 			compatible = "zmk,macro-control-tap-time";
+2026-04-11T07:02:59.2666234Z 			#binding-cells = < 0x1 >;
+2026-04-11T07:02:59.2666428Z 		};
+2026-04-11T07:02:59.2666591Z 		macro_wait_time: macro_wait_time {
+2026-04-11T07:02:59.2666856Z 			compatible = "zmk,macro-control-wait-time";
+2026-04-11T07:02:59.2667125Z 			#binding-cells = < 0x1 >;
+2026-04-11T07:02:59.2667319Z 		};
+2026-04-11T07:02:59.2667509Z 		macro_pause_for_release: macro_pause_for_release {
+2026-04-11T07:02:59.2667826Z 			compatible = "zmk,macro-pause-for-release";
+2026-04-11T07:02:59.2668093Z 			#binding-cells = < 0x0 >;
+2026-04-11T07:02:59.2668285Z 		};
+2026-04-11T07:02:59.2668457Z 		macro_param_1to1: macro_param_1to1 {
+2026-04-11T07:02:59.2668715Z 			compatible = "zmk,macro-param-1to1";
+2026-04-11T07:02:59.2668965Z 			#binding-cells = < 0x0 >;
+2026-04-11T07:02:59.2669333Z 		};
+2026-04-11T07:02:59.2669503Z 		macro_param_1to2: macro_param_1to2 {
+2026-04-11T07:02:59.2669764Z 			compatible = "zmk,macro-param-1to2";
+2026-04-11T07:02:59.2670011Z 			#binding-cells = < 0x0 >;
+2026-04-11T07:02:59.2670214Z 		};
+2026-04-11T07:02:59.2670380Z 		macro_param_2to1: macro_param_2to1 {
+2026-04-11T07:02:59.2670624Z 			compatible = "zmk,macro-param-2to1";
+2026-04-11T07:02:59.2670862Z 			#binding-cells = < 0x0 >;
+2026-04-11T07:02:59.2671059Z 		};
+2026-04-11T07:02:59.2671216Z 		macro_param_2to2: macro_param_2to2 {
+2026-04-11T07:02:59.2671735Z 			compatible = "zmk,macro-param-2to2";
+2026-04-11T07:02:59.2671995Z 			#binding-cells = < 0x0 >;
+2026-04-11T07:02:59.2672187Z 		};
+2026-04-11T07:02:59.2672344Z 		soft_off: z_so_off {
+2026-04-11T07:02:59.2672557Z 			compatible = "zmk,behavior-soft-off";
+2026-04-11T07:02:59.2672801Z 			#binding-cells = < 0x0 >;
+2026-04-11T07:02:59.2673036Z 			split-peripheral-off-on-press;
+2026-04-11T07:02:59.2673263Z 		};
+2026-04-11T07:02:59.2673426Z 		studio_unlock: studio_unlock {
+2026-04-11T07:02:59.2673682Z 			compatible = "zmk,behavior-studio-unlock";
+2026-04-11T07:02:59.2673948Z 			#binding-cells = < 0x0 >;
+2026-04-11T07:02:59.2674168Z 			display-name = "Studio Unlock";
+2026-04-11T07:02:59.2674516Z 		};
+2026-04-11T07:02:59.2674680Z 		mkp: mouse_key_press {
+2026-04-11T07:02:59.2674928Z 			compatible = "zmk,behavior-mouse-key-press";
+2026-04-11T07:02:59.2675203Z 			#binding-cells = < 0x1 >;
+2026-04-11T07:02:59.2675420Z 			display-name = "Mouse Key Press";
+2026-04-11T07:02:59.2675655Z 			phandle = < 0x17 >;
+2026-04-11T07:02:59.2675826Z 		};
+2026-04-11T07:02:59.2675978Z 		mmv: mouse_move {
+2026-04-11T07:02:59.2676198Z 			compatible = "zmk,behavior-input-two-axis";
+2026-04-11T07:02:59.2676463Z 			#binding-cells = < 0x1 >;
+2026-04-11T07:02:59.2676672Z 			x-input-code = < 0x0 >;
+2026-04-11T07:02:59.2676877Z 			y-input-code = < 0x1 >;
+2026-04-11T07:02:59.2677088Z 			time-to-max-speed-ms = < 0x12c >;
+2026-04-11T07:02:59.2677334Z 			acceleration-exponent = < 0x1 >;
+2026-04-11T07:02:59.2677570Z 			phandle = < 0x18 >;
+2026-04-11T07:02:59.2677741Z 		};
+2026-04-11T07:02:59.2677894Z 		msc: mouse_scroll {
+2026-04-11T07:02:59.2678119Z 			compatible = "zmk,behavior-input-two-axis";
+2026-04-11T07:02:59.2678392Z 			#binding-cells = < 0x1 >;
+2026-04-11T07:02:59.2678597Z 			x-input-code = < 0x6 >;
+2026-04-11T07:02:59.2678802Z 			y-input-code = < 0x8 >;
+2026-04-11T07:02:59.2679020Z 			time-to-max-speed-ms = < 0x12c >;
+2026-04-11T07:02:59.2679261Z 			acceleration-exponent = < 0x0 >;
+2026-04-11T07:02:59.2679494Z 			phandle = < 0x19 >;
+2026-04-11T07:02:59.2679675Z 		};
+2026-04-11T07:02:59.2679823Z 		cs_v: ctrl_shift_v {
+2026-04-11T07:02:59.2680033Z 			compatible = "zmk,behavior-macro";
+2026-04-11T07:02:59.2680285Z 			#binding-cells = < 0x0 >;
+2026-04-11T07:02:59.2680738Z 			bindings = < &macro_press &kp 0x700e0 &kp 0x700e1 >, < &macro_tap &kp 0x70019 >, < &macro_release &kp 0x700e1 &kp 0x700e0 >;
+2026-04-11T07:02:59.2681225Z 			phandle = < 0x1c >;
+2026-04-11T07:02:59.2681616Z 		};
+2026-04-11T07:02:59.2681757Z 	};
+2026-04-11T07:02:59.2681942Z 	mkp_input_listener: mkp_input_listener {
+2026-04-11T07:02:59.2682214Z 		compatible = "zmk,input-listener";
+2026-04-11T07:02:59.2682449Z 		device = < &mkp >;
+2026-04-11T07:02:59.2682624Z 	};
+2026-04-11T07:02:59.2682862Z 	mmv_input_listener: mmv_input_listener {
+2026-04-11T07:02:59.2683124Z 		compatible = "zmk,input-listener";
+2026-04-11T07:02:59.2683348Z 		device = < &mmv >;
+2026-04-11T07:02:59.2683522Z 	};
+2026-04-11T07:02:59.2683699Z 	msc_input_listener: msc_input_listener {
+2026-04-11T07:02:59.2683955Z 		compatible = "zmk,input-listener";
+2026-04-11T07:02:59.2684181Z 		device = < &msc >;
+2026-04-11T07:02:59.2684359Z 	};
+2026-04-11T07:02:59.2684502Z 	keymap {
+2026-04-11T07:02:59.2684673Z 		compatible = "zmk,keymap";
+2026-04-11T07:02:59.2684878Z 		default_layer {
+2026-04-11T07:02:59.2685062Z 			display-name = "base";
+2026-04-11T07:02:59.2687066Z 			bindings = < &kp 0x70029 &kp 0x7001e &kp 0x7001f &kp 0x70020 &kp 0x70021 &kp 0x70022 &kp 0x70023 &kp 0x70024 &kp 0x70025 &kp 0x70026 &kp 0x70027 &kp 0x7002a &kp 0x7002b &kp 0x70014 &kp 0x7001a &kp 0x70008 &kp 0x70015 &kp 0x70017 &kp 0x7001c &kp 0x70018 &kp 0x7000c &kp 0x70012 &kp 0x70013 &kp 0x7004c &kp 0x7002b &kp 0x70004 &kp 0x70016 &kp 0x70007 &kp 0x70009 &kp 0x7000a &kp 0x7000b &kp 0x7000d &kp 0x7000e &kp 0x7000f &kp 0x70033 &kp 0x70034 &kp 0x700e1 &kp 0x7001d &kp 0x7001b &kp 0x70006 &kp 0x70019 &kp 0x70005 &kp 0x70011 &kp 0x70010 &kp 0x70036 &kp 0x70037 &kp 0x70038 &kp 0x700e5 &kp 0x700e0 &kp 0x700e2 &kp 0x700e3 &mo 0x1 &kp 0x70028 &kp 0x7002c &mo 0x1 &kp 0x7002d &kp 0x7002f &kp 0x70030 >;
+2026-04-11T07:02:59.2689337Z 			sensor-bindings = < &inc_dec_kp 0xc00e9 0xc00ea &inc_dec_kp 0xc0233 0xc0234 >;
+2026-04-11T07:02:59.2689693Z 		};
+2026-04-11T07:02:59.2689844Z 		raise_layer {
+2026-04-11T07:02:59.2690018Z 			display-name = "raise";
+2026-04-11T07:02:59.2691864Z 			bindings = < &kp 0x70035 &kp 0x7003a &kp 0x7003b &kp 0x7003c &kp 0x7003d &kp 0x7003e &kp 0x7003f &kp 0x70040 &kp 0x70041 &kp 0x70042 &kp 0x70043 &kp 0x70044 &trans &trans &kp 0x70052 &kp 0x7002e &trans &trans &trans &trans &trans &trans &trans &kp 0x70045 &trans &kp 0x70050 &kp 0x70051 &kp 0x7004f &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &cs_v &trans &trans &trans &trans &trans &kp 0x70031 &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans >;
+2026-04-11T07:02:59.2693580Z 			sensor-bindings = < &inc_dec_kp 0xc00e9 0xc00ea &inc_dec_kp 0xc0233 0xc0234 >;
+2026-04-11T07:02:59.2693928Z 		};
+2026-04-11T07:02:59.2694070Z 	};
+2026-04-11T07:02:59.2694223Z };
+2026-04-11T07:02:59.2786563Z Post job cleanup.
+2026-04-11T07:02:59.2791965Z ##[command]/usr/bin/docker exec  6ca2667d08769352fcfa00ec4e8dd1b3561d63122be954315ac198518f758168 sh -c "cat /etc/*release | grep ^ID"
+2026-04-11T07:02:59.4765902Z [command]/usr/bin/git version
+2026-04-11T07:02:59.4807533Z git version 2.43.0
+2026-04-11T07:02:59.4854804Z Temporarily overriding HOME='/__w/_temp/ed03ac2e-fe1e-4465-adc1-374742c9d4ad' before making global git config changes
+2026-04-11T07:02:59.4856813Z Adding repository directory to the temporary git global config as a safe directory
+2026-04-11T07:02:59.4862058Z [command]/usr/bin/git config --global --add safe.directory /__w/zmk-config/zmk-config
+2026-04-11T07:02:59.4896838Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-04-11T07:02:59.4934573Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-04-11T07:02:59.5170059Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-04-11T07:02:59.5195005Z http.https://github.com/.extraheader
+2026-04-11T07:02:59.5207031Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-04-11T07:02:59.5239876Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-04-11T07:02:59.5458728Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-04-11T07:02:59.5488502Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-04-11T07:02:59.5821657Z Stop and remove container: 2676f8f3f51f461fb92ecdf467f63765_zmkfirmwarezmkbuildarmstable_84aa8d
+2026-04-11T07:02:59.5826253Z ##[command]/usr/bin/docker rm --force 6ca2667d08769352fcfa00ec4e8dd1b3561d63122be954315ac198518f758168
+2026-04-11T07:03:02.8877677Z 6ca2667d08769352fcfa00ec4e8dd1b3561d63122be954315ac198518f758168
+2026-04-11T07:03:02.8908247Z Remove container network: github_network_08a040e4fcfc4beebc0cadc01fbc22cc
+2026-04-11T07:03:02.8912748Z ##[command]/usr/bin/docker network rm github_network_08a040e4fcfc4beebc0cadc01fbc22cc
+2026-04-11T07:03:02.9874108Z github_network_08a040e4fcfc4beebc0cadc01fbc22cc
+2026-04-11T07:03:02.9935209Z Cleaning up orphan processes
+2026-04-11T07:03:03.0247409Z ##[warning]Node.js 20 actions are deprecated. The following actions are running on Node.js 20 and may not work as expected: actions/cache@v4, actions/checkout@v4. Actions will be forced to run with Node.js 24 by default starting June 2nd, 2026. Node.js 20 will be removed from the runner on September 16th, 2026. Please check if updated versions of these actions are available that support Node.js 24. To opt into Node.js 24 now, set the FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true environment variable on the runner or in your workflow file. Once Node.js 24 becomes the default, you can temporarily opt out by setting ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
