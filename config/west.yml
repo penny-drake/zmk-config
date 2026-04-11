@@ -10,7 +10,7 @@ manifest:
       revision: main
       import: app/west.yml
     - name: zmk-module
-      remote: mechboards
-      revision: nv_gem
+      url: https://github.com/M165437/nice-view-gem
+      revision: main
   self:
     path: config
